@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>BullsEye.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>40487FFD1DE650AA005DEA69</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>406F31F01DE6D67100A6AC85</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>40907E251CA8C0C500CAB5AC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>40AC12441DFD34CE009A4F95</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>40AC12521DFEBD93009A4F95</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>40AC12601DFEC034009A4F95</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>40AC126E1DFFC53C009A4F95</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>40AC129A1DFFD2C0009A4F95</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>40AC12A81DFFD3E2009A4F95</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
