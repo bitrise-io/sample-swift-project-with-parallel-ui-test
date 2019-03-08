@@ -20,6 +20,34 @@
                ReferencedContainer = "container:BullsEye.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "40AC129A1DFFD2C0009A4F95"
+               BuildableName = "BullsEyeMockTests.xctest"
+               BlueprintName = "BullsEyeMockTests"
+               ReferencedContainer = "container:BullsEye.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "40AC12A81DFFD3E2009A4F95"
+               BuildableName = "BullsEyeUITests.xctest"
+               BlueprintName = "BullsEyeUITests"
+               ReferencedContainer = "container:BullsEye.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -29,7 +57,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
-            skipped = "NO"
+            skipped = "YES"
             parallelizable = "YES"
             testExecutionOrdering = "random">
             <BuildableReference
@@ -42,37 +70,12 @@
          </TestableReference>
          <TestableReference
             skipped = "NO"
-            parallelizable = "YES"
-            testExecutionOrdering = "random">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "40AC129A1DFFD2C0009A4F95"
-               BuildableName = "BullsEyeMockTests.xctest"
-               BlueprintName = "BullsEyeMockTests"
-               ReferencedContainer = "container:BullsEye.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES"
-            testExecutionOrdering = "random">
+            parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "40AC12A81DFFD3E2009A4F95"
                BuildableName = "BullsEyeUITests.xctest"
                BlueprintName = "BullsEyeUITests"
-               ReferencedContainer = "container:BullsEye.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES"
-            testExecutionOrdering = "random">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1B7242912178DB0B004091DA"
-               BuildableName = "BullsEyeUITests_2.xctest"
-               BlueprintName = "BullsEyeUITests_2"
                ReferencedContainer = "container:BullsEye.xcodeproj">
             </BuildableReference>
          </TestableReference>
