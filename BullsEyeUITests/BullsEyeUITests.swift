@@ -72,7 +72,7 @@ class BullsEyeUITests: XCTestCase {
     
     func testCase(){
         let app = XCUIApplication()
-        app.otherElements.containing(.button, identifier:"hit me!").element.swipeLeft()
+        app.otherElements.containing(.button, identifier:"hit me!").firstMatch.swipeLeft()
         
         let slideButton = app/*@START_MENU_TOKEN@*/.buttons["Slide"]/*[[".segmentedControls.buttons[\"Slide\"]",".buttons[\"Slide\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
         slideButton.tap()
@@ -164,7 +164,7 @@ class BullsEyeUITests_2: XCTestCase {
     
     func testCase(){
         let app = XCUIApplication()
-        app.otherElements.containing(.button, identifier:"hit me!").element.swipeLeft()
+        app.otherElements.containing(.button, identifier:"hit me!").firstMatch.swipeLeft()
         
         let slideButton = app/*@START_MENU_TOKEN@*/.buttons["Slide"]/*[[".segmentedControls.buttons[\"Slide\"]",".buttons[\"Slide\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
         slideButton.tap()
