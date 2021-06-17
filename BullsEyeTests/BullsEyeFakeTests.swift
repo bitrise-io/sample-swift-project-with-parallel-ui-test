@@ -27,39 +27,48 @@
 /// THE SOFTWARE.
 
 import XCTest
+@testable import BullsEye
 
-class BullsEyeUITests: XCTestCase {
-  var app: XCUIApplication!
+class BullsEyeFakeTests: XCTestCase {
+  
+  var sut: BullsEyeGame!
   
   override func setUpWithError() throws {
     try super.setUpWithError()
-    continueAfterFailure = false
-    app = XCUIApplication()
-    app.launch()
+    sut = BullsEyeGame()
   }
   
-  func testGameStyleSwitch() {
+  override func tearDownWithError() throws {
+    sut = nil
+    try super.tearDownWithError()
+  }
+  
+  func testStartNewRoundUsesRandomValueFromApiRequest() {
     // given
-    let slideButton = app.segmentedControls.buttons["Slide"]
-    let typeButton = app.segmentedControls.buttons["Type"]
-    let slideLabel = app.staticTexts["Get as close as you can to: "]
-    let typeLabel = app.staticTexts["Guess where the slider is: "]
+    // 1
+    let stubbedData = "[1]".data(using: .utf8)
+    let urlString =
+    "http://www.randomnumberapi.com/api/v1.0/random?min=0&max=100&count=1"
+    let url = URL(string: urlString)!
+    let stubbedResponse = HTTPURLResponse(
+      url: url,
+      statusCode: 200,
+      httpVersion: nil,
+      headerFields: nil)
+    let urlSessionStub = URLSessionStub(
+      data: stubbedData,
+      response: stubbedResponse,
+      error: nil)
+    sut.urlSession = urlSessionStub
+    let promise = expectation(description: "Value Received")
     
-    // then
-    if slideButton.isSelected {
-      XCTAssertTrue(slideLabel.exists)
-      XCTAssertFalse(typeLabel.exists)
-
-      typeButton.tap()
-      XCTAssertTrue(typeLabel.exists)
-      XCTAssertFalse(slideLabel.exists)
-    } else if typeButton.isSelected {
-      XCTAssertTrue(typeLabel.exists)
-      XCTAssertFalse(slideLabel.exists)
-
-      slideButton.tap()
-      XCTAssertTrue(slideLabel.exists)
-      XCTAssertFalse(typeLabel.exists)
+    // when
+    sut.startNewRound {
+      // then
+      // 2
+      XCTAssertEqual(self.sut.targetValue, 1)
+      promise.fulfill()
     }
+    wait(for: [promise], timeout: 5)
   }
 }

@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "EFA88F06-D77F-4167-9BB2-49CC896D9F0F",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:BullsEye.xcodeproj",
+        "identifier" : "13FB7D0B26773C570084066F",
+        "name" : "BullsEyeUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "815F7373-7F58-41F3-B3E7-9618F6B49B4E",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:BullsEye.xcodeproj",
+        "identifier" : "13FB7CED267726620084066F",
+        "name" : "BullsEyeTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:BullsEye.xcodeproj",
+        "identifier" : "13FB7CFA2677288A0084066F",
+        "name" : "BullsEyeSlowTests"
+      }
+    }
+  ],
+  "version" : 1
+}

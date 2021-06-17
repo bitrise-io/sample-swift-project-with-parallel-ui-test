@@ -28,38 +28,54 @@
 
 import XCTest
 
-class BullsEyeUITests: XCTestCase {
-  var app: XCUIApplication!
+@testable import BullsEye
+
+class MockUserDefaults: UserDefaults {
+  var gameStyleChanged = 0
+  override func set(_ value: Int, forKey defaultName: String) {
+    if defaultName == "gameStyle" {
+      gameStyleChanged += 1
+    }
+  }
+}
+
+class BullsEyeMockTests: XCTestCase {
+  var sut: ViewController!
+  var mockUserDefaults: MockUserDefaults!
   
   override func setUpWithError() throws {
     try super.setUpWithError()
-    continueAfterFailure = false
-    app = XCUIApplication()
-    app.launch()
+    sut = UIStoryboard(name: "Main", bundle: nil)
+      .instantiateInitialViewController() as? ViewController
+    mockUserDefaults = MockUserDefaults(suiteName: "testing")
+    sut.defaults = mockUserDefaults
   }
   
-  func testGameStyleSwitch() {
+  override func tearDownWithError() throws {
+    sut = nil
+    mockUserDefaults = nil
+    try super.tearDownWithError()
+  }
+  
+  func testGameStyleCanBeChanged() {
     // given
-    let slideButton = app.segmentedControls.buttons["Slide"]
-    let typeButton = app.segmentedControls.buttons["Type"]
-    let slideLabel = app.staticTexts["Get as close as you can to: "]
-    let typeLabel = app.staticTexts["Guess where the slider is: "]
+    let segmentedControl = UISegmentedControl()
+    
+    // when
+    XCTAssertEqual(
+      mockUserDefaults.gameStyleChanged,
+      0,
+      "gameStyleChanged should be 0 before sendActions")
+    segmentedControl.addTarget(
+      sut,
+      action: #selector(ViewController.chooseGameStyle(_:)),
+      for: .valueChanged)
+    segmentedControl.sendActions(for: .valueChanged)
     
     // then
-    if slideButton.isSelected {
-      XCTAssertTrue(slideLabel.exists)
-      XCTAssertFalse(typeLabel.exists)
-
-      typeButton.tap()
-      XCTAssertTrue(typeLabel.exists)
-      XCTAssertFalse(slideLabel.exists)
-    } else if typeButton.isSelected {
-      XCTAssertTrue(typeLabel.exists)
-      XCTAssertFalse(slideLabel.exists)
-
-      slideButton.tap()
-      XCTAssertTrue(slideLabel.exists)
-      XCTAssertFalse(typeLabel.exists)
-    }
+    XCTAssertEqual(
+      mockUserDefaults.gameStyleChanged,
+      1,
+      "gameStyle user default wasn't changed")
   }
 }

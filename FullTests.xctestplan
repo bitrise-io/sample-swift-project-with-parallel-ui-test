@@ -1,0 +1,38 @@
+{
+  "configurations" : [
+    {
+      "id" : "39BFD8CC-8ACF-4573-BEA9-A87B20643141",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testRepetitionMode" : "retryOnFailure"
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:BullsEye.xcodeproj",
+        "identifier" : "13FB7CED267726620084066F",
+        "name" : "BullsEyeTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:BullsEye.xcodeproj",
+        "identifier" : "13FB7CFA2677288A0084066F",
+        "name" : "BullsEyeSlowTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:BullsEye.xcodeproj",
+        "identifier" : "13FB7D0B26773C570084066F",
+        "name" : "BullsEyeUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

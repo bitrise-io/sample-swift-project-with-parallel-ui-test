@@ -1,4 +1,4 @@
-/// Copyright (c) 2021. Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -26,40 +26,28 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import XCTest
+import Network
 
-class BullsEyeUITests: XCTestCase {
-  var app: XCUIApplication!
-  
-  override func setUpWithError() throws {
-    try super.setUpWithError()
-    continueAfterFailure = false
-    app = XCUIApplication()
-    app.launch()
+class NetworkMonitor {
+  static let shared = NetworkMonitor()
+  var isReachable: Bool { status == .satisfied }
+
+  private let monitor = NWPathMonitor()
+  private var status = NWPath.Status.requiresConnection
+
+  private init() {
+    startMonitoring()
   }
-  
-  func testGameStyleSwitch() {
-    // given
-    let slideButton = app.segmentedControls.buttons["Slide"]
-    let typeButton = app.segmentedControls.buttons["Type"]
-    let slideLabel = app.staticTexts["Get as close as you can to: "]
-    let typeLabel = app.staticTexts["Guess where the slider is: "]
-    
-    // then
-    if slideButton.isSelected {
-      XCTAssertTrue(slideLabel.exists)
-      XCTAssertFalse(typeLabel.exists)
 
-      typeButton.tap()
-      XCTAssertTrue(typeLabel.exists)
-      XCTAssertFalse(slideLabel.exists)
-    } else if typeButton.isSelected {
-      XCTAssertTrue(typeLabel.exists)
-      XCTAssertFalse(slideLabel.exists)
-
-      slideButton.tap()
-      XCTAssertTrue(slideLabel.exists)
-      XCTAssertFalse(typeLabel.exists)
+  func startMonitoring() {
+    monitor.pathUpdateHandler = { [weak self] path in
+      self?.status = path.status
     }
+    let queue = DispatchQueue(label: "NetworkMonitor")
+    monitor.start(queue: queue)
+  }
+
+  func stopMonitoring() {
+    monitor.cancel()
   }
 }
