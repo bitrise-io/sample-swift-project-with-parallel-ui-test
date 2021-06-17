@@ -39,7 +39,7 @@
             reference = "container:UITests.xctestplan">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:BullsEye.xcodeproj/ParallelFullTests.xctestplan">
+            reference = "container:ParallelUITests.xctestplan">
          </TestPlanReference>
       </TestPlans>
       <Testables>
