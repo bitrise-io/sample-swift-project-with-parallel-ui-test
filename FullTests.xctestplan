@@ -20,6 +20,9 @@
       }
     },
     {
+      "skippedTests" : [
+        "BullsEyeFailingTests"
+      ],
       "target" : {
         "containerPath" : "container:BullsEye.xcodeproj",
         "identifier" : "13FB7CFA2677288A0084066F",

@@ -1,7 +1,7 @@
 {
   "configurations" : [
     {
-      "id" : "815F7373-7F58-41F3-B3E7-9618F6B49B4E",
+      "id" : "98E97681-4FB9-4FA9-8049-1CB8AF43AC76",
       "name" : "Configuration 1",
       "options" : {
 
@@ -9,19 +9,12 @@
     }
   ],
   "defaultOptions" : {
-
+    "testTimeoutsEnabled" : true
   },
   "testTargets" : [
     {
-      "target" : {
-        "containerPath" : "container:BullsEye.xcodeproj",
-        "identifier" : "13FB7CED267726620084066F",
-        "name" : "BullsEyeTests"
-      }
-    },
-    {
       "skippedTests" : [
-        "BullsEyeFailingTests"
+        "BullsEyeSlowTests"
       ],
       "target" : {
         "containerPath" : "container:BullsEye.xcodeproj",

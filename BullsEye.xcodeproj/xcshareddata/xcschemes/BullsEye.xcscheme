@@ -41,6 +41,9 @@
          <TestPlanReference
             reference = "container:ParallelUITests.xctestplan">
          </TestPlanReference>
+         <TestPlanReference
+            reference = "container:FailingTests.xctestplan">
+         </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference
