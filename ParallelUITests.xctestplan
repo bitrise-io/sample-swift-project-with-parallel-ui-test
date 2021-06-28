@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "C87260A9-D4DE-4333-8845-8F10ADA392AC",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:BullsEye.xcodeproj",
+        "identifier" : "13FB7D0B26773C570084066F",
+        "name" : "BullsEyeUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

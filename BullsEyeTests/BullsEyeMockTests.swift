@@ -27,40 +27,55 @@
 /// THE SOFTWARE.
 
 import XCTest
+
 @testable import BullsEye
 
-class BullsEyeTests: XCTestCase {
-  var sut: BullsEyeGame!
+class MockUserDefaults: UserDefaults {
+  var gameStyleChanged = 0
+  override func set(_ value: Int, forKey defaultName: String) {
+    if defaultName == "gameStyle" {
+      gameStyleChanged += 1
+    }
+  }
+}
+
+class BullsEyeMockTests: XCTestCase {
+  var sut: ViewController!
+  var mockUserDefaults: MockUserDefaults!
   
   override func setUpWithError() throws {
     try super.setUpWithError()
-    sut = BullsEyeGame()
+    sut = UIStoryboard(name: "Main", bundle: nil)
+      .instantiateInitialViewController() as? ViewController
+    mockUserDefaults = MockUserDefaults(suiteName: "testing")
+    sut.defaults = mockUserDefaults
   }
   
   override func tearDownWithError() throws {
     sut = nil
+    mockUserDefaults = nil
     try super.tearDownWithError()
   }
   
-  func testScoreIsComputedWhenGuessIsHigherThanTarget() {
+  func testGameStyleCanBeChanged() {
     // given
-    let guess = sut.targetValue + 5
-
+    let segmentedControl = UISegmentedControl()
+    
     // when
-    sut.check(guess: guess)
-
+    XCTAssertEqual(
+      mockUserDefaults.gameStyleChanged,
+      0,
+      "gameStyleChanged should be 0 before sendActions")
+    segmentedControl.addTarget(
+      sut,
+      action: #selector(ViewController.chooseGameStyle(_:)),
+      for: .valueChanged)
+    segmentedControl.sendActions(for: .valueChanged)
+    
     // then
-    XCTAssertEqual(sut.scoreRound, 95, "Score computed from guess is wrong")
-  }
-  
-  func testScoreIsComputedWhenGuessIsLowerThanTarget() {
-    // given
-    let guess = sut.targetValue - 5
-
-    // when
-    sut.check(guess: guess)
-
-    // then
-    XCTAssertEqual(sut.scoreRound, 105, "Score computed from guess is wrong")
+    XCTAssertEqual(
+      mockUserDefaults.gameStyleChanged,
+      1,
+      "gameStyle user default wasn't changed")
   }
 }

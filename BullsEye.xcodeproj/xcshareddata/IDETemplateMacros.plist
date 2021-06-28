@@ -1,4 +1,9 @@
-/// Copyright (c) 2021. Razeware LLC
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>FILEHEADER</key>
+	<string>/ Copyright (c) ___YEAR___ Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -24,43 +29,7 @@
 /// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-/// THE SOFTWARE.
+/// THE SOFTWARE.</string>
+</dict>
+</plist>
 
-import XCTest
-@testable import BullsEye
-
-class BullsEyeTests: XCTestCase {
-  var sut: BullsEyeGame!
-  
-  override func setUpWithError() throws {
-    try super.setUpWithError()
-    sut = BullsEyeGame()
-  }
-  
-  override func tearDownWithError() throws {
-    sut = nil
-    try super.tearDownWithError()
-  }
-  
-  func testScoreIsComputedWhenGuessIsHigherThanTarget() {
-    // given
-    let guess = sut.targetValue + 5
-
-    // when
-    sut.check(guess: guess)
-
-    // then
-    XCTAssertEqual(sut.scoreRound, 95, "Score computed from guess is wrong")
-  }
-  
-  func testScoreIsComputedWhenGuessIsLowerThanTarget() {
-    // given
-    let guess = sut.targetValue - 5
-
-    // when
-    sut.check(guess: guess)
-
-    // then
-    XCTAssertEqual(sut.scoreRound, 105, "Score computed from guess is wrong")
-  }
-}

@@ -1,4 +1,4 @@
-/// Copyright (c) 2021. Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -26,41 +26,28 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import XCTest
-@testable import BullsEye
+import Network
 
-class BullsEyeTests: XCTestCase {
-  var sut: BullsEyeGame!
-  
-  override func setUpWithError() throws {
-    try super.setUpWithError()
-    sut = BullsEyeGame()
+class NetworkMonitor {
+  static let shared = NetworkMonitor()
+  var isReachable: Bool { status == .satisfied }
+
+  private let monitor = NWPathMonitor()
+  private var status = NWPath.Status.requiresConnection
+
+  private init() {
+    startMonitoring()
   }
-  
-  override func tearDownWithError() throws {
-    sut = nil
-    try super.tearDownWithError()
+
+  func startMonitoring() {
+    monitor.pathUpdateHandler = { [weak self] path in
+      self?.status = path.status
+    }
+    let queue = DispatchQueue(label: "NetworkMonitor")
+    monitor.start(queue: queue)
   }
-  
-  func testScoreIsComputedWhenGuessIsHigherThanTarget() {
-    // given
-    let guess = sut.targetValue + 5
 
-    // when
-    sut.check(guess: guess)
-
-    // then
-    XCTAssertEqual(sut.scoreRound, 95, "Score computed from guess is wrong")
-  }
-  
-  func testScoreIsComputedWhenGuessIsLowerThanTarget() {
-    // given
-    let guess = sut.targetValue - 5
-
-    // when
-    sut.check(guess: guess)
-
-    // then
-    XCTAssertEqual(sut.scoreRound, 105, "Score computed from guess is wrong")
+  func stopMonitoring() {
+    monitor.cancel()
   }
 }
