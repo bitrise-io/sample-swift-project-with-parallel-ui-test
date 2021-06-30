@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "6ADB41B7-6F06-4C78-B680-E64A7E89882E",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "BullsEyeFailingTests",
+        "BullsEyeSlowTests"
+      ],
+      "target" : {
+        "containerPath" : "container:BullsEye.xcodeproj",
+        "identifier" : "13FB7CFA2677288A0084066F",
+        "name" : "BullsEyeSlowTests"
+      }
+    }
+  ],
+  "version" : 1
+}
