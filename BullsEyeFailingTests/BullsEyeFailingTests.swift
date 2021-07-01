@@ -29,10 +29,9 @@
 import XCTest
 @testable import BullsEye
 
-class BullsEyeSlowTests: XCTestCase {
+class BullsEyeFailingTests: XCTestCase {
   
   var sut: URLSession!
-  let networkMonitor = NetworkMonitor.shared
   
   override func setUpWithError() throws {
     try super.setUpWithError()
@@ -44,47 +43,15 @@ class BullsEyeSlowTests: XCTestCase {
     try super.tearDownWithError()
   }
   
-  // Asynchronous test: success fast, failure slow
-  func testValidApiCallGetsHTTPStatusCode200() throws {
-    try XCTSkipUnless(
-      networkMonitor.isReachable,
-      "Network connectivity needed for this test.")
-    
-    // given
-    let urlString =
-      "http://www.randomnumberapi.com/api/v1.0/random?min=0&max=100&count=1"
-    let url = URL(string: urlString)!
-    // 1
-    let promise = expectation(description: "Status code: 200")
-
-    // when
-    let dataTask = sut.dataTask(with: url) { _, response, error in
-      // then
-      if let error = error {
-        XCTFail("Error: \(error.localizedDescription)")
-        return
-      } else if let statusCode = (response as? HTTPURLResponse)?.statusCode {
-        if statusCode == 200 {
-          // 2
-          promise.fulfill()
-        } else {
-          XCTFail("Status code: \(statusCode)")
-        }
-      }
-    }
-    dataTask.resume()
-    // 3
-    wait(for: [promise], timeout: 5)
-  }
   
   func testApiCallCompletes() throws {
     // given
-    let urlString = "http://www.randomnumberapi.com"
+    let urlString = "http://www.randomnumberapi.com/fail"
     let url = URL(string: urlString)!
     let promise = expectation(description: "Completion handler invoked")
     var statusCode: Int?
     var responseError: Error?
-
+    
     // when
     let dataTask = sut.dataTask(with: url) { _, response, error in
       statusCode = (response as? HTTPURLResponse)?.statusCode
@@ -93,9 +60,25 @@ class BullsEyeSlowTests: XCTestCase {
     }
     dataTask.resume()
     wait(for: [promise], timeout: 5)
-
+    
     // then
     XCTAssertNil(responseError)
     XCTAssertEqual(statusCode, 200)
+  }
+}
+
+class BullsEyeFlakyTests: XCTestCase {
+  
+  static var numberOfFailures = 0
+  
+  override class func setUp() {
+    numberOfFailures = Int(ProcessInfo.processInfo.environment["FLAKY_TEST_NUMBER_OF_FAILURES"] ?? "1") ?? 1
+  }
+  
+  func testPassIfNoFailuresRemain() {
+    if BullsEyeFlakyTests.numberOfFailures > 0 {
+      BullsEyeFlakyTests.numberOfFailures -= 1
+      XCTFail()
+    }
   }
 }

@@ -13,14 +13,13 @@
   },
   "testTargets" : [
     {
-      "skippedTests" : [
-        "BullsEyeFailingTests",
-        "BullsEyeSlowTests"
+      "selectedTests" : [
+        "BullsEyeFlakyTests\/testPassIfNoFailuresRemain()"
       ],
       "target" : {
         "containerPath" : "container:BullsEye.xcodeproj",
-        "identifier" : "13FB7CFA2677288A0084066F",
-        "name" : "BullsEyeSlowTests"
+        "identifier" : "139E88A6268DBCDA0007755C",
+        "name" : "BullsEyeFailingTests"
       }
     }
   ],
