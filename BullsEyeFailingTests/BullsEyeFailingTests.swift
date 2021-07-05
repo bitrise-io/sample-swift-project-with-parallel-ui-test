@@ -68,16 +68,13 @@ class BullsEyeFailingTests: XCTestCase {
 }
 
 class BullsEyeFlakyTests: XCTestCase {
-  
-  static var numberOfFailures = 0
-  
-  override class func setUp() {
-    numberOfFailures = Int(ProcessInfo.processInfo.environment["FLAKY_TEST_NUMBER_OF_FAILURES"] ?? "1") ?? 1
-  }
+  private static let numberOfFailuresKey = "flaky_test_number_of_failures"
   
   func testPassIfNoFailuresRemain() {
-    if BullsEyeFlakyTests.numberOfFailures > 0 {
-      BullsEyeFlakyTests.numberOfFailures -= 1
+    let numberOfFailures = UserDefaults.standard.integer(forKey: BullsEyeFlakyTests.numberOfFailuresKey)
+    
+    if numberOfFailures > 0 {
+      UserDefaults.standard.set(numberOfFailures - 1, forKey: BullsEyeFlakyTests.numberOfFailuresKey)
       XCTFail()
     }
   }
