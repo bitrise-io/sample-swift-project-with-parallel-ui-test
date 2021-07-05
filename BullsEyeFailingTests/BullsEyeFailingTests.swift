@@ -67,6 +67,8 @@ class BullsEyeFailingTests: XCTestCase {
   }
 }
 
+// BullsEyeFlakyTests is a test case that will fail a configurable number of times,
+// then will succeed. This allows to validate the test retry behaviour of the Xcode Test Step.
 class BullsEyeFlakyTests: XCTestCase {
   private static let numberOfFailuresKey = "flaky_test_number_of_failures"
   
