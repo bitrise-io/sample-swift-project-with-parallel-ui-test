@@ -74,8 +74,9 @@
 		13FB7D18267745440084066F /* UITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UITests.xctestplan; sourceTree = "<group>"; };
 		202D822D25D7D57B00778080 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		202D823D25D7D8A300778080 /* URLSessionStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionStub.swift; sourceTree = "<group>"; };
-		47F8605E26932D000039E549 /* FlakyTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = FlakyTests.xctestplan; sourceTree = "<group>"; };
 		5394F02421864DF4006E754C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8C6DE9B3269DD0240020B2C9 /* EventuallySucceedingTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EventuallySucceedingTests.xctestplan; sourceTree = "<group>"; };
+		8C6DE9B4269DD04C0020B2C9 /* EventuallyFailingTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EventuallyFailingTests.xctestplan; sourceTree = "<group>"; };
 		D2A5F2001F4A9144005CD714 /* BullsEye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BullsEye.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2A5F2081F4A9144005CD714 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D2A5F20A1F4A9144005CD714 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -168,7 +169,8 @@
 		D2A5F1F71F4A9143005CD714 = {
 			isa = PBXGroup;
 			children = (
-				47F8605E26932D000039E549 /* FlakyTests.xctestplan */,
+				8C6DE9B4269DD04C0020B2C9 /* EventuallyFailingTests.xctestplan */,
+				8C6DE9B3269DD0240020B2C9 /* EventuallySucceedingTests.xctestplan */,
 				13055E73267B39B700D762C7 /* FailingTests.xctestplan */,
 				134E1D48267B31C200FEA165 /* ParallelUITests.xctestplan */,
 				13FB7D17267742220084066F /* UnitTests.xctestplan */,
