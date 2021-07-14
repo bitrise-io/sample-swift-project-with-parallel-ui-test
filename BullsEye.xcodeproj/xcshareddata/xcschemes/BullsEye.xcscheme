@@ -45,7 +45,10 @@
             reference = "container:FailingTests.xctestplan">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:FlakyTests.xctestplan">
+            reference = "container:EventuallyFailingTests.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:EventuallySucceedingTests.xctestplan">
          </TestPlanReference>
       </TestPlans>
       <Testables>

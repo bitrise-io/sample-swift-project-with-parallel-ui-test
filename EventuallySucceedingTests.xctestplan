@@ -1,7 +1,7 @@
 {
   "configurations" : [
     {
-      "id" : "AC97ACE2-6152-46A5-B2BB-09804ADF9653",
+      "id" : "73BB88C6-6032-4362-8067-72AABD36B3B6",
       "name" : "Configuration 1",
       "options" : {
 
@@ -14,7 +14,7 @@
   "testTargets" : [
     {
       "selectedTests" : [
-        "BullsEyeFlakyTests\/testPassIfNoFailuresRemain()"
+        "BullsEyeEventuallySucceedingTests\/testPassIfNoFailuresRemain()"
       ],
       "target" : {
         "containerPath" : "container:BullsEye.xcodeproj",

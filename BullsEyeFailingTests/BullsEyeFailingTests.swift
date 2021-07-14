@@ -67,16 +67,34 @@ class BullsEyeFailingTests: XCTestCase {
   }
 }
 
-// BullsEyeFlakyTests is a test case that will fail a configurable number of times,
-// then will succeed. This allows to validate the test retry behaviour of the Xcode Test Step.
-class BullsEyeFlakyTests: XCTestCase {
-  private static let numberOfFailuresKey = "flaky_test_number_of_failures"
+// A test case that initially fails a predefined number of times then always succeeds.
+// The number of remaining failures is stored in UserDefaults, which is decremented each time the test is executed until it becomes 0.
+// Useful for testing Test Repetition in the Xcode Test step.
+class BullsEyeEventuallySucceedingTests: XCTestCase {
+  private static let numberOfFailuresKey = "eventually_succeeding_test_number_of_failures"
   
   func testPassIfNoFailuresRemain() {
-    let numberOfFailures = UserDefaults.standard.integer(forKey: BullsEyeFlakyTests.numberOfFailuresKey)
+    let numberOfRemainingFailures = UserDefaults.standard.integer(forKey: BullsEyeEventuallySucceedingTests.numberOfFailuresKey)
     
-    if numberOfFailures > 0 {
-      UserDefaults.standard.set(numberOfFailures - 1, forKey: BullsEyeFlakyTests.numberOfFailuresKey)
+    if numberOfRemainingFailures > 0 {
+      UserDefaults.standard.set(numberOfRemainingFailures - 1, forKey: BullsEyeEventuallySucceedingTests.numberOfFailuresKey)
+      XCTFail()
+    }
+  }
+}
+
+// A test case that initially succeeds a predefined number of times then always fails.
+// The number of remaining successes is stored in UserDefaults, which is decremented each time the test is executed until it becomes 0.
+// Useful for testing Test Repetition in the Xcode Test step.
+class BullsEyeEventuallyFailingTests: XCTestCase {
+  private static let numberOfSuccessesKey = "eventually_failing_test_number_of_successes"
+  
+  func testFailIfNoSuccessesRemain() {
+    let numberOfRemainingSuccesses = UserDefaults.standard.integer(forKey: BullsEyeEventuallyFailingTests.numberOfSuccessesKey)
+    
+    if numberOfRemainingSuccesses > 0 {
+      UserDefaults.standard.set(numberOfRemainingSuccesses - 1, forKey: BullsEyeEventuallyFailingTests.numberOfSuccessesKey)
+    } else {
       XCTFail()
     }
   }
