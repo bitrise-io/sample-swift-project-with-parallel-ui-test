@@ -1,0 +1,27 @@
+{
+  "configurations" : [
+    {
+      "id" : "A3251F97-FBD0-45F1-83A6-FDFE8417A3FB",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "selectedTests" : [
+        "BullsEyeEventuallyFailingInMemoryTests\/testPassIfNoFailuresRemain()"
+      ],
+      "target" : {
+        "containerPath" : "container:BullsEye.xcodeproj",
+        "identifier" : "139E88A6268DBCDA0007755C",
+        "name" : "BullsEyeFailingTests"
+      }
+    }
+  ],
+  "version" : 1
+}

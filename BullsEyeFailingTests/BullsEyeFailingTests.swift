@@ -68,7 +68,8 @@ class BullsEyeFailingTests: XCTestCase {
 }
 
 // A test case that initially fails a predefined number of times then always succeeds.
-// The number of remaining failures is stored in UserDefaults, which is decremented each time the test is executed until it becomes 0.
+// The number of remaining failures is stored in UserDefaults, which is decremented each time the test is executed until it reaches 0.
+// After that, the test will always succeed.
 // Useful for testing Test Repetition in the Xcode Test step.
 class BullsEyeEventuallySucceedingTests: XCTestCase {
   private static let numberOfFailuresKey = "eventually_succeeding_test_number_of_failures"
@@ -84,7 +85,8 @@ class BullsEyeEventuallySucceedingTests: XCTestCase {
 }
 
 // A test case that initially succeeds a predefined number of times then always fails.
-// The number of remaining successes is stored in UserDefaults, which is decremented each time the test is executed until it becomes 0.
+// The number of remaining successes is stored in UserDefaults, which is decremented each time the test is executed until it reaches 0.
+// After that, the test will always fail.
 // Useful for testing Test Repetition in the Xcode Test step.
 class BullsEyeEventuallyFailingTests: XCTestCase {
   private static let numberOfSuccessesKey = "eventually_failing_test_number_of_successes"
@@ -94,6 +96,25 @@ class BullsEyeEventuallyFailingTests: XCTestCase {
     
     if numberOfRemainingSuccesses > 0 {
       UserDefaults.standard.set(numberOfRemainingSuccesses - 1, forKey: BullsEyeEventuallyFailingTests.numberOfSuccessesKey)
+    } else {
+      XCTFail()
+    }
+  }
+}
+
+// A test case that initially succeeds a predefined number of times then always succeeds.
+// The number of remaining successes is initialized from UserDefaults then stored in memory.
+// This number is decremented each time a test is executed until it reaches 0. After that, the test will always fail.
+// Can be used to test "Relaunch Tests for Each Repetition" input of the Xcode Test step:
+// - If each test is executed in a new process, then the number of successes is always reset to the value in UserDefaults - therefore tests will never fail (assuming this number is >0).
+// - If tests are executed in the same process, the number of successes has a chance to reach 0 - hence tests will eventually fail.
+class BullsEyeEventuallyFailingInMemoryTests: XCTestCase {
+  private static let numberOfSuccessesKey = "eventually_failing_test_number_of_successes"
+  private static var numberOfRemainingSuccesses = UserDefaults.standard.integer(forKey: BullsEyeEventuallyFailingInMemoryTests.numberOfSuccessesKey)
+  
+  func testFailIfNoSuccessesRemain() {
+    if BullsEyeEventuallyFailingInMemoryTests.numberOfRemainingSuccesses > 0 {
+      BullsEyeEventuallyFailingInMemoryTests.numberOfRemainingSuccesses -= 1
     } else {
       XCTFail()
     }
