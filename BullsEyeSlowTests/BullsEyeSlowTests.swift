@@ -51,9 +51,7 @@ class BullsEyeSlowTests: XCTestCase {
       "Network connectivity needed for this test.")
     
     // given
-    let urlString =
-      "http://www.randomnumberapi.com/api/v1.0/random?min=0&max=100&count=1"
-    let url = URL(string: urlString)!
+    let url = URL(string: Constant.url)!
     // 1
     let promise = expectation(description: "Status code: 200")
 
@@ -79,8 +77,7 @@ class BullsEyeSlowTests: XCTestCase {
   
   func testApiCallCompletes() throws {
     // given
-    let urlString = "http://www.randomnumberapi.com"
-    let url = URL(string: urlString)!
+    let url = URL(string: Constant.url)!
     let promise = expectation(description: "Completion handler invoked")
     var statusCode: Int?
     var responseError: Error?
@@ -97,5 +94,11 @@ class BullsEyeSlowTests: XCTestCase {
     // then
     XCTAssertNil(responseError)
     XCTAssertEqual(statusCode, 200)
+  }
+}
+
+private extension BullsEyeSlowTests {
+  enum Constant {
+    static let url = "https://google.com"
   }
 }
