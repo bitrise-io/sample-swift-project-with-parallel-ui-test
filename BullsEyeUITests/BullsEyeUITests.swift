@@ -38,6 +38,15 @@ class BullsEyeUITests: XCTestCase {
     app.launch()
   }
   
+  func testTakeScreenshotOfMainWindow() {
+      let app = XCUIApplication()
+      app.launch()
+      let screenshot = app.windows.firstMatch.screenshot()
+      let attachment = XCTAttachment(screenshot: screenshot)
+      attachment.lifetime = .keepAlways
+      add(attachment)
+  }
+  
   func testGameStyleSwitch() {
     // given
     let slideButton = app.segmentedControls.buttons["Slide"]
