@@ -71,6 +71,12 @@ class BullsEyeUITests: XCTestCase {
       XCTAssertFalse(typeLabel.exists)
     }
   }
+
+  func testGameStyleSwitchRandomFail() {
+    // given
+    let randomInt = Int.random(in: 0..<2)
+    XCTAssertTrue(randomInt == 1)
+  }
 }
 
 class BullsEyeUITests2: XCTestCase {
