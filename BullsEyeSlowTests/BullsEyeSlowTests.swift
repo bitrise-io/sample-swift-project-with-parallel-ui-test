@@ -74,6 +74,12 @@ class BullsEyeSlowTests: XCTestCase {
     // 3
     wait(for: [promise], timeout: 5)
   }
+
+  func testGameStyleSwitchRandomFail() {
+    // given
+    let randomInt = Int.random(in: 0..<2)
+    XCTAssertTrue(randomInt == 1)
+  }
   
   func testApiCallCompletes() throws {
     // given

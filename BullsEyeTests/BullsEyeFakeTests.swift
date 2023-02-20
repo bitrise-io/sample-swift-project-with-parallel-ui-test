@@ -71,4 +71,10 @@ class BullsEyeFakeTests: XCTestCase {
     }
     wait(for: [promise], timeout: 5)
   }
+
+  func testGameStyleSwitchRandomFail() {
+    // given
+    let randomInt = Int.random(in: 0..<2)
+    XCTAssertTrue(randomInt == 1)
+  }
 }

@@ -63,4 +63,10 @@ class BullsEyeTests: XCTestCase {
     // then
     XCTAssertEqual(sut.scoreRound, 105, "Score computed from guess is wrong")
   }
+
+  func testGameStyleSwitchRandomFail() {
+    // given
+    let randomInt = Int.random(in: 0..<2)
+    XCTAssertTrue(randomInt == 1)
+  }
 }

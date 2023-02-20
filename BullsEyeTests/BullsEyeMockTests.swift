@@ -78,4 +78,10 @@ class BullsEyeMockTests: XCTestCase {
       1,
       "gameStyle user default wasn't changed")
   }
+  
+  func testGameStyleSwitchRandomFail() {
+    // given
+    let randomInt = Int.random(in: 0..<2)
+    XCTAssertTrue(randomInt == 1)
+  }
 }
