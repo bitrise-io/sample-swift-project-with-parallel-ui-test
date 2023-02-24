@@ -78,6 +78,7 @@
 		8C18098226A05EEF00631F74 /* EventuallyFailingInMemoryTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EventuallyFailingInMemoryTests.xctestplan; sourceTree = "<group>"; };
 		8C6DE9B3269DD0240020B2C9 /* EventuallySucceedingTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EventuallySucceedingTests.xctestplan; sourceTree = "<group>"; };
 		8C6DE9B4269DD04C0020B2C9 /* EventuallyFailingTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EventuallyFailingTests.xctestplan; sourceTree = "<group>"; };
+		90A43C9F29A90A32003E5D0E /* flow.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = flow.yaml; sourceTree = "<group>"; };
 		D2A5F2001F4A9144005CD714 /* BullsEye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BullsEye.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2A5F2081F4A9144005CD714 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D2A5F20A1F4A9144005CD714 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -170,6 +171,7 @@
 		D2A5F1F71F4A9143005CD714 = {
 			isa = PBXGroup;
 			children = (
+				90A43C9F29A90A32003E5D0E /* flow.yaml */,
 				8C18098226A05EEF00631F74 /* EventuallyFailingInMemoryTests.xctestplan */,
 				8C6DE9B4269DD04C0020B2C9 /* EventuallyFailingTests.xctestplan */,
 				8C6DE9B3269DD0240020B2C9 /* EventuallySucceedingTests.xctestplan */,

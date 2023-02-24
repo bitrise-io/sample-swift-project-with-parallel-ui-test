@@ -1,0 +1,21 @@
+appId: io.bitrise.BullsEye
+---
+- launchApp
+- tapOn: "Slide"
+- tapOn: "hit me!"
+- assertVisible:
+    text: "you scored 100 points"
+    index: 1
+- assertVisible: "OK"
+- tapOn: "OK"
+- tapOn: "Type"
+- tapOn:
+    point: "79%,7%"
+- inputText: "12"
+- inputText: "Enter"
+- tapOn: "hit me!"
+- assertVisible:
+    text: "Not A Number"
+    index: 1
+- tapOn: "OK"
+- takeScreenshot: MainScreen 
