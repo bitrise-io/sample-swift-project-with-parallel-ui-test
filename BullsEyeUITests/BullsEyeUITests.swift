@@ -75,7 +75,25 @@ class BullsEyeUITests: XCTestCase {
   func testGameStyleSwitchRandomFail() {
     // given
     let randomInt = Int.random(in: 0..<2)
-    XCTAssertTrue(randomInt == 1)
+    let slideLabel = app.staticTexts["Get as close as you can to: "]
+    let missingSlideLabel = app.staticTexts["This does not exist"]
+    let slideButton = app.segmentedControls.buttons["Slide"]
+    let typeButton = app.segmentedControls.buttons["Type"]
+
+    // then
+    if slideButton.isSelected {
+      if(randomInt == 1) {
+        XCTAssertTrue(missingSlideLabel.exists)
+      }
+      XCTAssertTrue(slideLabel.exists)
+    } else if typeButton.isSelected {
+      if(randomInt == 1) {
+        XCTAssertTrue(missingSlideLabel.exists)
+      }
+      XCTAssertFalse(slideLabel.exists)
+      slideButton.tap()
+      XCTAssertTrue(slideLabel.exists)
+    }
   }
 }
 
