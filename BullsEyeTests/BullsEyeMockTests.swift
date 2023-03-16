@@ -81,7 +81,7 @@ class BullsEyeMockTests: XCTestCase {
   
   func testGameStyleSwitchFlaky() {
     // given
-    let randomInt = Int.random(in: 0..<2)
+    let randomInt = Int.random(in: 0..<3)
     // given
     let segmentedControl = UISegmentedControl()
     

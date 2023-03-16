@@ -93,7 +93,7 @@ class BullsEyeSlowTests: XCTestCase {
 
     // then
     XCTAssertNil(responseError)
-    let randomInt = Int.random(in: 200..<202)
+    let randomInt = Int.random(in: 200..<203)
     XCTAssertEqual(statusCode, randomInt)
   }
   

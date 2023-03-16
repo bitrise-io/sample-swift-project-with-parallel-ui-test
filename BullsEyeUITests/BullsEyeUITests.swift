@@ -74,7 +74,7 @@ class BullsEyeUITests: XCTestCase {
 
   func testGameStyleSwitchFlaky() {
     // given
-    let randomInt = Int.random(in: 0..<2)
+    let randomInt = Int.random(in: 0..<3)
     let slideLabel = app.staticTexts["Get as close as you can to: "]
     let missingSlideLabel = app.staticTexts["This does not exist"]
     let slideButton = app.segmentedControls.buttons["Slide"]

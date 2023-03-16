@@ -73,7 +73,7 @@ class BullsEyeTests: XCTestCase {
     sut.check(guess: guess)
 
     // then
-    let randomInt = Int.random(in: 104..<106)
+    let randomInt = Int.random(in: 104..<107)
 
     XCTAssertEqual(sut.scoreRound, randomInt, "Score computed from guess is wrong")
   }
