@@ -72,7 +72,7 @@ class BullsEyeUITests: XCTestCase {
     }
   }
 
-  func testGameStyleSwitchRandomFail() {
+  func testGameStyleSwitchFlaky() {
     // given
     let randomInt = Int.random(in: 0..<2)
     let slideLabel = app.staticTexts["Get as close as you can to: "]
@@ -83,12 +83,12 @@ class BullsEyeUITests: XCTestCase {
     // then
     if slideButton.isSelected {
       if(randomInt == 1) {
-        XCTAssertTrue(missingSlideLabel.exists)
+        XCTAssertTrue(missingSlideLabel.exists, "Slide label does not exist")
       }
       XCTAssertTrue(slideLabel.exists)
     } else if typeButton.isSelected {
       if(randomInt == 1) {
-        XCTAssertTrue(missingSlideLabel.exists)
+        XCTAssertTrue(missingSlideLabel.exists, "Slide label does not exist")
       }
       XCTAssertFalse(slideLabel.exists)
       slideButton.tap()
@@ -130,11 +130,5 @@ class BullsEyeUITests2: XCTestCase {
       XCTAssertTrue(slideLabel.exists)
       XCTAssertFalse(typeLabel.exists)
     }
-  }
-
-  func testGameStyleSwitchRandomFail() {
-    // given
-    let randomInt = Int.random(in: 0..<2)
-    XCTAssertTrue(randomInt == 1)
   }
 }

@@ -79,9 +79,27 @@ class BullsEyeMockTests: XCTestCase {
       "gameStyle user default wasn't changed")
   }
   
-  func testGameStyleSwitchRandomFail() {
+  func testGameStyleSwitchFlaky() {
     // given
     let randomInt = Int.random(in: 0..<2)
-    XCTAssertTrue(randomInt == 1)
+    // given
+    let segmentedControl = UISegmentedControl()
+    
+    // when
+    XCTAssertEqual(
+      mockUserDefaults.gameStyleChanged,
+      0,
+      "gameStyleChanged should be 0 before sendActions")
+    segmentedControl.addTarget(
+      sut,
+      action: #selector(ViewController.chooseGameStyle(_:)),
+      for: .valueChanged)
+    segmentedControl.sendActions(for: .valueChanged)
+    
+    // then
+    XCTAssertEqual(
+      mockUserDefaults.gameStyleChanged,
+      randomInt,
+      "gameStyle user default wasn't changed")
   }
 }

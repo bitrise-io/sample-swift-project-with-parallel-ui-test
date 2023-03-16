@@ -75,6 +75,6 @@ class BullsEyeFakeTests: XCTestCase {
   func testGameStyleSwitchRandomFail() {
     // given
     let randomInt = Int.random(in: 0..<2)
-    XCTAssertTrue(randomInt == 1)
+    XCTAssertTrue(randomInt == 1, "random number is not equal to 1")
   }
 }
