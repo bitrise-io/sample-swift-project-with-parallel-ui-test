@@ -89,7 +89,7 @@ class BullsEyeSlowTests: XCTestCase {
       promise.fulfill()
     }
     dataTask.resume()
-    wait(for: [promise], timeout: 5)
+    wait(for: [promise], timeout: 30)
 
     // then
     XCTAssertNil(responseError)
