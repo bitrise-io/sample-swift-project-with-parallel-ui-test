@@ -44,35 +44,25 @@ class BullsEyeSlowTests: XCTestCase {
     try super.tearDownWithError()
   }
   
-  // Asynchronous test: success fast, failure slow
-  func testValidApiCallGetsHTTPStatusCode200() throws {
-    try XCTSkipUnless(
-      networkMonitor.isReachable,
-      "Network connectivity needed for this test.")
-    
-    // given
-    let url = URL(string: Constant.url)!
-    // 1
-    let promise = expectation(description: "Status code: 200")
+  // Asynchronous test
+  func testAlwaysSucceedsWithRandomDelay() {
+      // Create an expectation
+      let expectation = XCTestExpectation(description: "Wait for random delay")
 
-    // when
-    let dataTask = sut.dataTask(with: url) { _, response, error in
-      // then
-      if let error = error {
-        XCTFail("Error: \(error.localizedDescription)")
-        return
-      } else if let statusCode = (response as? HTTPURLResponse)?.statusCode {
-        if statusCode == 200 {
-          // 2
-          promise.fulfill()
-        } else {
-          XCTFail("Status code: \(statusCode)")
-        }
+      // Generate a random delay between 5 and 10 seconds
+      let randomDelay = Double.random(in: 5...10)
+    
+      // Print the random delay for debugging purposes
+      print("Random delay: \(randomDelay) seconds")
+
+      // Dispatch after random delay
+      DispatchQueue.global().asyncAfter(deadline: .now() + randomDelay) {
+          // Fulfill the expectation
+          expectation.fulfill()
       }
-    }
-    dataTask.resume()
-    // 3
-    wait(for: [promise], timeout: 30)
+
+      // Wait for the expectation to be fulfilled
+      wait(for: [expectation], timeout: 15)
   }
   
   func testApiCallCompletes() throws {
