@@ -72,7 +72,7 @@ class BullsEyeSlowTests: XCTestCase {
     }
     dataTask.resume()
     // 3
-    wait(for: [promise], timeout: 5)
+    wait(for: [promise], timeout: 30)
   }
   
   func testApiCallCompletes() throws {
