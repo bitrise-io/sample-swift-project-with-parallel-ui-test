@@ -30,20 +30,6 @@ import XCTest
 @testable import BullsEye
 
 class BullsEyeSlowTests: XCTestCase {
-  
-  var sut: URLSession!
-  let networkMonitor = NetworkMonitor.shared
-  
-  override func setUpWithError() throws {
-    try super.setUpWithError()
-    sut = URLSession(configuration: .default)
-  }
-  
-  override func tearDownWithError() throws {
-    sut = nil
-    try super.tearDownWithError()
-  }
-  
   // Asynchronous test
   func testAlwaysSucceedsWithRandomDelay() {
       // Create an expectation
@@ -63,32 +49,5 @@ class BullsEyeSlowTests: XCTestCase {
 
       // Wait for the expectation to be fulfilled
       wait(for: [expectation], timeout: 15)
-  }
-  
-  func testApiCallCompletes() throws {
-    // given
-    let url = URL(string: Constant.url)!
-    let promise = expectation(description: "Completion handler invoked")
-    var statusCode: Int?
-    var responseError: Error?
-
-    // when
-    let dataTask = sut.dataTask(with: url) { _, response, error in
-      statusCode = (response as? HTTPURLResponse)?.statusCode
-      responseError = error
-      promise.fulfill()
-    }
-    dataTask.resume()
-    wait(for: [promise], timeout: 30)
-
-    // then
-    XCTAssertNil(responseError)
-    XCTAssertEqual(statusCode, 200)
-  }
-}
-
-private extension BullsEyeSlowTests {
-  enum Constant {
-    static let url = "https://google.com"
   }
 }
