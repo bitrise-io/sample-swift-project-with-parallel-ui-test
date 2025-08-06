@@ -120,3 +120,11 @@ class BullsEyeEventuallyFailingInMemoryTests: XCTestCase {
     }
   }
 }
+
+class BullsEyeRandomlyFailingTests: XCTestCase {
+  func testRandomlyFail() {
+    if Int.random(in: 0...1) == 1 {
+      XCTFail()
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "configurations" : [
+    {
+      "id" : "FC151939-A3D9-4ACD-8D66-EF55CA423729",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testRepetitionMode" : "retryOnFailure",
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "BullsEyeEventuallyFailingInMemoryTests",
+        "BullsEyeEventuallyFailingInMemoryTests\/testFailIfNoSuccessesRemain()",
+        "BullsEyeEventuallyFailingTests",
+        "BullsEyeEventuallyFailingTests\/testFailIfNoSuccessesRemain()",
+        "BullsEyeEventuallySucceedingTests",
+        "BullsEyeEventuallySucceedingTests\/testPassIfNoFailuresRemain()",
+        "BullsEyeFailingTests",
+        "BullsEyeFailingTests\/testApiCallCompletes()"
+      ],
+      "target" : {
+        "containerPath" : "container:BullsEye.xcodeproj",
+        "identifier" : "139E88A6268DBCDA0007755C",
+        "name" : "BullsEyeFailingTests"
+      }
+    }
+  ],
+  "version" : 1
+}
