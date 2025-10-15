@@ -67,6 +67,10 @@ class BullsEyeUITests: XCTestCase {
 class BullsEyeUITests2: XCTestCase {
   var app: XCUIApplication!
   
+  override class var runsForEachTargetApplicationUIConfiguration: Bool {
+      true
+  }
+  
   override func setUpWithError() throws {
     try super.setUpWithError()
     continueAfterFailure = false
