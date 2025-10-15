@@ -33,28 +33,7 @@
             default = "YES">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:UnitTests.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
             reference = "container:UITests.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:ParallelUITests.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:FailingTests.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:EventuallyFailingTests.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:EventuallySucceedingTests.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:EventuallyFailingInMemoryTests.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:RandomlyFailingTests.xctestplan">
          </TestPlanReference>
       </TestPlans>
       <Testables>

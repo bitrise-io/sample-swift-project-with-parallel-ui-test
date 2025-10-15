@@ -57,9 +57,6 @@
 /* Begin PBXFileReference section */
 		0A6CFAFB21F39B0F00345B5B /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0A6CFAFC21F39B0F00345B5B /* BullsEyeGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BullsEyeGame.swift; sourceTree = "<group>"; };
-		13055E73267B39B700D762C7 /* FailingTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = FailingTests.xctestplan; sourceTree = "<group>"; };
-		134E1D48267B31C200FEA165 /* ParallelUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ParallelUITests.xctestplan; sourceTree = "<group>"; };
-		1396F8832EA0186900FA6E26 /* RandomlyFailingTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = RandomlyFailingTests.xctestplan; sourceTree = "<group>"; };
 		139E88A7268DBCDA0007755C /* BullsEyeFailingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BullsEyeFailingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		139E88A9268DBCDA0007755C /* BullsEyeFailingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BullsEyeFailingTests.swift; sourceTree = "<group>"; };
 		13FB7CEE267726620084066F /* BullsEyeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BullsEyeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,14 +68,10 @@
 		13FB7D0C26773C570084066F /* BullsEyeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BullsEyeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		13FB7D0E26773C570084066F /* BullsEyeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BullsEyeUITests.swift; sourceTree = "<group>"; };
 		13FB7D162677410F0084066F /* FullTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = FullTests.xctestplan; sourceTree = "<group>"; };
-		13FB7D17267742220084066F /* UnitTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UnitTests.xctestplan; sourceTree = "<group>"; };
 		13FB7D18267745440084066F /* UITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UITests.xctestplan; sourceTree = "<group>"; };
 		202D822D25D7D57B00778080 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		202D823D25D7D8A300778080 /* URLSessionStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionStub.swift; sourceTree = "<group>"; };
 		5394F02421864DF4006E754C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8C18098226A05EEF00631F74 /* EventuallyFailingInMemoryTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EventuallyFailingInMemoryTests.xctestplan; sourceTree = "<group>"; };
-		8C6DE9B3269DD0240020B2C9 /* EventuallySucceedingTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EventuallySucceedingTests.xctestplan; sourceTree = "<group>"; };
-		8C6DE9B4269DD04C0020B2C9 /* EventuallyFailingTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EventuallyFailingTests.xctestplan; sourceTree = "<group>"; };
 		D2A5F2001F4A9144005CD714 /* BullsEye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BullsEye.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2A5F2081F4A9144005CD714 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D2A5F20A1F4A9144005CD714 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -171,15 +164,8 @@
 		D2A5F1F71F4A9143005CD714 = {
 			isa = PBXGroup;
 			children = (
-				8C18098226A05EEF00631F74 /* EventuallyFailingInMemoryTests.xctestplan */,
-				8C6DE9B4269DD04C0020B2C9 /* EventuallyFailingTests.xctestplan */,
-				8C6DE9B3269DD0240020B2C9 /* EventuallySucceedingTests.xctestplan */,
-				13055E73267B39B700D762C7 /* FailingTests.xctestplan */,
-				134E1D48267B31C200FEA165 /* ParallelUITests.xctestplan */,
-				13FB7D17267742220084066F /* UnitTests.xctestplan */,
 				13FB7D18267745440084066F /* UITests.xctestplan */,
 				13FB7D162677410F0084066F /* FullTests.xctestplan */,
-				1396F8832EA0186900FA6E26 /* RandomlyFailingTests.xctestplan */,
 				D2A5F2021F4A9144005CD714 /* BullsEye */,
 				13FB7CEF267726620084066F /* BullsEyeTests */,
 				13FB7CFC2677288A0084066F /* BullsEyeSlowTests */,

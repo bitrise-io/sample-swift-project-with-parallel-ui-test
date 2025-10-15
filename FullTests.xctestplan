@@ -15,23 +15,6 @@
     {
       "target" : {
         "containerPath" : "container:BullsEye.xcodeproj",
-        "identifier" : "13FB7CED267726620084066F",
-        "name" : "BullsEyeTests"
-      }
-    },
-    {
-      "skippedTests" : [
-        "BullsEyeFailingTests"
-      ],
-      "target" : {
-        "containerPath" : "container:BullsEye.xcodeproj",
-        "identifier" : "13FB7CFA2677288A0084066F",
-        "name" : "BullsEyeSlowTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:BullsEye.xcodeproj",
         "identifier" : "13FB7D0B26773C570084066F",
         "name" : "BullsEyeUITests"
       }
