@@ -59,6 +59,7 @@
 		0A6CFAFC21F39B0F00345B5B /* BullsEyeGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BullsEyeGame.swift; sourceTree = "<group>"; };
 		13055E73267B39B700D762C7 /* FailingTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = FailingTests.xctestplan; sourceTree = "<group>"; };
 		134E1D48267B31C200FEA165 /* ParallelUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ParallelUITests.xctestplan; sourceTree = "<group>"; };
+		1396F8832EA0186900FA6E26 /* RandomlyFailingTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = RandomlyFailingTests.xctestplan; sourceTree = "<group>"; };
 		139E88A7268DBCDA0007755C /* BullsEyeFailingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BullsEyeFailingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		139E88A9268DBCDA0007755C /* BullsEyeFailingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BullsEyeFailingTests.swift; sourceTree = "<group>"; };
 		13FB7CEE267726620084066F /* BullsEyeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BullsEyeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -178,6 +179,7 @@
 				13FB7D17267742220084066F /* UnitTests.xctestplan */,
 				13FB7D18267745440084066F /* UITests.xctestplan */,
 				13FB7D162677410F0084066F /* FullTests.xctestplan */,
+				1396F8832EA0186900FA6E26 /* RandomlyFailingTests.xctestplan */,
 				D2A5F2021F4A9144005CD714 /* BullsEye */,
 				13FB7CEF267726620084066F /* BullsEyeTests */,
 				13FB7CFC2677288A0084066F /* BullsEyeSlowTests */,
