@@ -1,0 +1,63 @@
+format_version: "25"
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+
+app:
+  envs:
+  - BITRISE_QUARANTINED_TESTS_JSON: |-
+      [
+        {
+          "testCaseName": "testGameStyleSwitch()",
+          "testSuiteName": [
+            "BullsEyeUITests"
+          ],
+          "className": "BullsEyeUITests2"
+        },
+        {
+          "testCaseName": "testGameStyleSwitch()",
+          "testSuiteName": [
+            "BullsEyeUITests"
+          ],
+          "className": "BullsEyeUITests"
+        }
+      ]
+
+workflows:
+  test_2:
+    steps:
+    - script:
+        title: Convert BITRISE_QUARANTINED_TESTS_JSON
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -e
+            # Read JSON from environment variable
+            json="$BITRISE_QUARANTINED_TESTS_JSON"
+            # Convert to array of TestTarget/TestClass/TestMethod
+            test_array=($(echo "$json" | jq -r '.[] | "-skip-testing:\(.testSuiteName[0])/\(.className)/\(.testCaseName)"'))
+            # Join the array elements with a space
+            skip_testing_list="${test_array[*]}"
+            # Export the space-separated string as an environment variable to be used by following Fastlane Steps
+            envman add --key BITRISE_QUARANTINED_TESTS_LIST --value "$skip_testing_list"
+    - script:
+        inputs:
+        - content: set -x && xcodebuild -scheme BullsEye test -destination "id=96EEF664-C9C4-4F5F-91CB-2C04FBE9719D" -testPlan "UITests" $BITRISE_QUARANTINED_TESTS_LIST | xcpretty
+
+  test:
+    steps:
+    - script:
+        title: Convert BITRISE_QUARANTINED_TESTS_JSON
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -e
+            # Read JSON from environment variable
+            json="$BITRISE_QUARANTINED_TESTS_JSON"
+            # Convert to array of TestTarget/TestClass/TestMethod
+            test_array=($(echo "$json" | jq -r '.[] | "\(.testSuiteName[0])/\(.className)/\(.testCaseName)"'))
+            # Join the array elements with a comma
+            skip_testing_list=$(IFS=, ; echo "${test_array[*]}")
+            # Export the comma-separated string as an environment variable to be used by following Fastlane Steps
+            envman add --key BITRISE_QUARANTINED_TESTS_LIST --value "$skip_testing_list"
+    - fastlane:
+        inputs:
+        - lane: test

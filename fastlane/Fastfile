@@ -1,0 +1,32 @@
+require 'json'
+
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Description of what the lane does"
+  lane :test do
+    # Convert quarantined tests in Fastfile
+    # skip_testing = JSON.parse(ENV['BITRISE_QUARANTINED_TESTS_JSON']).map do |item|
+    #   "#{item['testSuiteName'][0]}/#{item['className']}/#{item['testCaseName']}"
+    # end unless ENV['BITRISE_QUARANTINED_TESTS_JSON'].to_s.empty?
+    # scan(skip_testing: skip_testing)
+
+    # Convert quarantined tests in bitrise.yml
+    scan(skip_testing: ENV['BITRISE_QUARANTINED_TESTS_LIST'].split(','))
+  end
+end

@@ -1,0 +1,3 @@
+scheme("BullsEye")
+skip_build(true)
+devices(["iPhone 17"])
