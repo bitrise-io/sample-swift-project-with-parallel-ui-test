@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "FCA12F88-13EC-4E0D-8AB2-0DD1370C50B0",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:BullsEye.xcodeproj",
+        "identifier" : "1365FCE02EB364F50095BE6C",
+        "name" : "BullsEyeEmbeddedTests"
+      }
+    }
+  ],
+  "version" : 1
+}

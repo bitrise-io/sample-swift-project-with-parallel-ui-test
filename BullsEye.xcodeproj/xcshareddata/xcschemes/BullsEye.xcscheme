@@ -35,6 +35,9 @@
          <TestPlanReference
             reference = "container:UITests.xctestplan">
          </TestPlanReference>
+         <TestPlanReference
+            reference = "container:EmbeddedTests.xctestplan">
+         </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference
@@ -74,6 +77,17 @@
                BlueprintIdentifier = "139E88A6268DBCDA0007755C"
                BuildableName = "BullsEyeFailingTests.xctest"
                BlueprintName = "BullsEyeFailingTests"
+               ReferencedContainer = "container:BullsEye.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1365FCE02EB364F50095BE6C"
+               BuildableName = "BullsEyeEmbeddedTests.xctest"
+               BlueprintName = "BullsEyeEmbeddedTests"
                ReferencedContainer = "container:BullsEye.xcodeproj">
             </BuildableReference>
          </TestableReference>
