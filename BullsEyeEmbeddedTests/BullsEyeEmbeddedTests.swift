@@ -29,25 +29,26 @@
 import Testing
 
 @Test func testCaseWithouthClass() async throws {
-    // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+  let rand = Int.random(in: 0...1)
+  #expect(rand == 0)
 }
 
 @Suite struct BullsEyeEmbeddedTests {
-
     @Test func testCaseWithClass() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+      let rand = Int.random(in: 0...1)
+      #expect(rand == 0)
     }
   
   @Suite struct BullsEyeEmbeddedTests2 {
-
       @Test func testCaseWithClass2() async throws {
-          // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+        let rand = Int.random(in: 0...1)
+        #expect(rand == 0)
       }
 
     @Suite struct BullsEyeEmbeddedTests3 {
-
         @Test func testCaseWithClass3() async throws {
-            // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+          let rand = Int.random(in: 0...1)
+          #expect(rand == 0)
         }
     }
   }
