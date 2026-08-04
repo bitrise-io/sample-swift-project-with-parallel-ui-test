@@ -70,6 +70,12 @@ Running all three ends of the range is what keeps the wide Xcode compatibility c
 The steps live in two step bundles, `run_tests` and `build_archive`, so each workflow is a stack
 plus one bundle reference and a step change only has to be made once.
 
-`run_tests` runs `xcode-build-for-test` for a physical device before testing, which is what
-exercises automatic code signing of the test targets, then runs `FullTests` and `ParallelUITests`
-on a simulator.
+`run_tests` prepares signing assets with `manage-ios-code-signing`, then runs
+`xcode-build-for-test` for a physical device, which is what exercises code signing of the test
+targets, then runs `FullTests` and `ParallelUITests` on a simulator.
+
+Signing is prepared as its own step rather than left to `xcode-build-for-test` so that xcodebuild
+never runs with `-allowProvisioningUpdates`. All five bundle IDs match the team's
+`io.bitrise.*` wildcard profile, so when xcodebuild is allowed to regenerate profiles during the
+build, the app target and the UI test runner can end up pointing at different generations of that
+one profile, and the file the runner was handed no longer exists when it is packaged.
