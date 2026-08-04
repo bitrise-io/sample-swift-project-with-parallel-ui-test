@@ -49,6 +49,9 @@ protocol URLSessionProtocol {
   ) -> URLSessionDataTaskProtocol
 }
 
+// This overloads Foundation's dataTask(with:completionHandler:) on return type
+// alone, so a caller holding a concrete URLSession has to annotate the result to
+// pick one.
 extension URLSession: URLSessionProtocol {
   func dataTask(
     with url: URL,
