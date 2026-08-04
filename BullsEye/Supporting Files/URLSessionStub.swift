@@ -32,15 +32,32 @@
 
 import Foundation
 
-typealias DataTaskCompletionHandler = (Data?, URLResponse?, Error?) -> Void
+typealias DataTaskCompletionHandler = @Sendable (Data?, URLResponse?, Error?) -> Void
+
+// Returning a protocol instead of URLSessionDataTask lets the stub avoid
+// subclassing it, whose only initializer is deprecated since iOS 13.
+protocol URLSessionDataTaskProtocol {
+  func resume()
+}
+
+extension URLSessionDataTask: URLSessionDataTaskProtocol { }
+
 protocol URLSessionProtocol {
   func dataTask(
     with url: URL,
     completionHandler: @escaping DataTaskCompletionHandler
-  ) -> URLSessionDataTask
+  ) -> URLSessionDataTaskProtocol
 }
 
-extension URLSession: URLSessionProtocol { }
+extension URLSession: URLSessionProtocol {
+  func dataTask(
+    with url: URL,
+    completionHandler: @escaping DataTaskCompletionHandler
+  ) -> URLSessionDataTaskProtocol {
+    let task: URLSessionDataTask = dataTask(with: url, completionHandler: completionHandler)
+    return task
+  }
+}
 
 class URLSessionStub: URLSessionProtocol {
   private let stubbedData: Data?
@@ -56,7 +73,7 @@ class URLSessionStub: URLSessionProtocol {
   public func dataTask(
     with url: URL,
     completionHandler: @escaping DataTaskCompletionHandler
-  ) -> URLSessionDataTask {
+  ) -> URLSessionDataTaskProtocol {
     URLSessionDataTaskStub(
       stubbedData: stubbedData,
       stubbedResponse: stubbedResponse,
@@ -66,7 +83,7 @@ class URLSessionStub: URLSessionProtocol {
   }
 }
 
-class URLSessionDataTaskStub: URLSessionDataTask {
+class URLSessionDataTaskStub: URLSessionDataTaskProtocol {
   private let stubbedData: Data?
   private let stubbedResponse: URLResponse?
   private let stubbedError: Error?
@@ -84,7 +101,7 @@ class URLSessionDataTaskStub: URLSessionDataTask {
     self.completionHandler = completionHandler
   }
 
-  override func resume() {
+  func resume() {
     completionHandler?(stubbedData, stubbedResponse, stubbedError)
   }
 }
