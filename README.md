@@ -71,11 +71,6 @@ target-level setting and one override would give all five targets the same ident
 Overriding the base instead moves all five together and keeps them distinct
 (`…`, `….tests`, `….slowtests`, `….failingtests`, `….uitests`).
 
-**Permanently, in Xcode.** Select the `BullsEye` project, not a target, then
-Build Settings. `Development Team` is under Signing, `SAMPLE_BUNDLE_ID_BASE` under
-User-Defined. Editing them on the project keeps them in one place; setting them on a
-target would break the override paths below.
-
 **For one build, from the command line:**
 
 ```
