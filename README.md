@@ -54,27 +54,49 @@ set up a scenario by seeding those keys before the run.
   versions and still valid on the newest, so the same fixture compiles across the whole CI Xcode
   matrix.
 
-## Building under a different Apple Developer team
+## Changing the code signing team
 
-Nothing team-specific is baked into signing: the identity is the generic
-`Apple Development`, no provisioning profile is pinned, all targets use automatic
-signing, and there are no entitlements files. Two build settings carry the team-specific
-values, both defined once at project level so a step or an `xcconfig` can override them:
+Two build settings carry the team-specific values. Both are defined once, at project
+level, so they can be overridden without editing the project:
 
-| setting | default | why it has to change |
+| setting | default | what it is |
 | --- | --- | --- |
-| `DEVELOPMENT_TEAM` | `72SA8V3WYL` | the team signing the build |
-| `SAMPLE_BUNDLE_ID_BASE` | `io.bitrise.sample-apps-swift` | App IDs are unique across teams, so another team cannot register these |
+| `DEVELOPMENT_TEAM` | `72SA8V3WYL` | the team that signs the build |
+| `SAMPLE_BUNDLE_ID_BASE` | `io.bitrise.sample-apps-swift` | the base every target's bundle identifier is built from |
 
-Each target's bundle identifier is derived from the base, so overriding the base moves
-all five together and keeps them distinct:
+Change both. App IDs are unique across Apple Developer teams, so a different team
+cannot register `io.bitrise.sample-apps-swift` and App Store Connect rejects it with a
+409. Overriding `PRODUCT_BUNDLE_IDENTIFIER` directly does not work, because it is a
+target-level setting and one override would give all five targets the same identifier.
+Overriding the base instead moves all five together and keeps them distinct
+(`…`, `….tests`, `….slowtests`, `….failingtests`, `….uitests`).
+
+**Permanently, in Xcode.** Select the `BullsEye` project, not a target, then
+Build Settings. `Development Team` is under Signing, `SAMPLE_BUNDLE_ID_BASE` under
+User-Defined. Editing them on the project keeps them in one place; setting them on a
+target would break the override paths below.
+
+**For one build, from the command line:**
 
 ```
 xcodebuild ... DEVELOPMENT_TEAM=YOURTEAM SAMPLE_BUNDLE_ID_BASE=com.example.sample
 ```
 
-Steps that manage code signing themselves take the team from the Apple service
-connection and rewrite it at build time, so there only the bundle ID base matters.
+**For one build, from a Bitrise step**, using any step that takes `xcconfig_content`:
+
+```yaml
+- xcode-build-for-test:
+    inputs:
+    - xcconfig_content: |-
+        DEVELOPMENT_TEAM = YOURTEAM
+        SAMPLE_BUNDLE_ID_BASE = com.example.sample
+```
+
+Nothing else is team-specific: the identity is the generic `Apple Development`, no
+provisioning profile is pinned, every target uses automatic signing, and there are no
+entitlements files. Steps that manage code signing themselves take the team from the
+Apple service connection and rewrite `DEVELOPMENT_TEAM` at build time, so with those
+only the bundle ID base has to be set.
 
 ## CI
 
