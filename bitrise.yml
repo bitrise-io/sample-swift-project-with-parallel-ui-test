@@ -23,10 +23,16 @@ pipelines:
       archive_edge_xcode: {}
 
 workflows:
+  # The test workflows ask for a bigger machine than the archive ones because
+  # they boot simulator clones for the parallel UI tests. On the default machine
+  # a clone can fail to finish bootstrapping, which fails the run even when every
+  # test case passed:
+  # https://app.bitrise.io/app/597717e1-5acb-4904-965d-2fefbc01c1bb/build/b10fb202-e575-477e-855e-5e95c48b0d2a
   test_min_xcode:
     meta:
       bitrise.io:
         stack: osx-xcode-16.0.x
+        machine_type_id: g2.mac.large
     steps:
     - bundle::run_tests: {}
 
@@ -34,6 +40,7 @@ workflows:
     meta:
       bitrise.io:
         stack: osx-xcode-latest-stable
+        machine_type_id: g2.mac.large
     steps:
     - bundle::run_tests: {}
 
@@ -41,6 +48,7 @@ workflows:
     meta:
       bitrise.io:
         stack: osx-xcode-edge
+        machine_type_id: g2.mac.large
     steps:
     - bundle::run_tests: {}
 
