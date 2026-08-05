@@ -95,12 +95,17 @@ step_bundles:
         - project_path: $BITRISE_PROJECT_PATH
         - scheme: $BITRISE_SCHEME
         - test_plan: FullTests
+    # Capped because the runner boots one simulator clone per worker and gives up
+    # on a clone that takes over 60s. Uncapped, Xcode asks for more clones than
+    # the machine can boot in time and the run fails on the clone, which no
+    # amount of test retries can recover.
     - xcode-test:
         title: Xcode Test (ParallelUITests)
         inputs:
         - project_path: $BITRISE_PROJECT_PATH
         - scheme: $BITRISE_SCHEME
         - test_plan: ParallelUITests
+        - xcodebuild_options: -maximum-parallel-testing-workers 2
     - deploy-to-bitrise-io: {}
 
   build_archive:

@@ -54,6 +54,28 @@ set up a scenario by seeding those keys before the run.
   versions and still valid on the newest, so the same fixture compiles across the whole CI Xcode
   matrix.
 
+## Building under a different Apple Developer team
+
+Nothing team-specific is baked into signing: the identity is the generic
+`Apple Development`, no provisioning profile is pinned, all targets use automatic
+signing, and there are no entitlements files. Two build settings carry the team-specific
+values, both defined once at project level so a step or an `xcconfig` can override them:
+
+| setting | default | why it has to change |
+| --- | --- | --- |
+| `DEVELOPMENT_TEAM` | `72SA8V3WYL` | the team signing the build |
+| `SAMPLE_BUNDLE_ID_BASE` | `io.bitrise.sample-apps-swift` | App IDs are unique across teams, so another team cannot register these |
+
+Each target's bundle identifier is derived from the base, so overriding the base moves
+all five together and keeps them distinct:
+
+```
+xcodebuild ... DEVELOPMENT_TEAM=YOURTEAM SAMPLE_BUNDLE_ID_BASE=com.example.sample
+```
+
+Steps that manage code signing themselves take the team from the Apple service
+connection and rewrite it at build time, so there only the bundle ID base matters.
+
 ## CI
 
 `bitrise.yml` defines a `pr_check` pipeline that runs on every pull request. It fans out into six
