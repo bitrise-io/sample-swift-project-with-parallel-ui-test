@@ -74,10 +74,8 @@ step_bundles:
     # the app target and the UI test runner resolve different generations of the
     # team's shared io.bitrise.* wildcard profile, and the file one of them was
     # handed is already gone by the time it is packaged.
-    # configuration must match the one xcode-build-for-test uses. The step
-    # rewrites signing settings for a single configuration, and left unset it
-    # picks the scheme's archive configuration, which would leave the configuration
-    # actually being built on automatic signing with no profile to resolve.
+    # configuration must match the one xcode-build-for-test uses:
+    # https://app.bitrise.io/app/597717e1-5acb-4904-965d-2fefbc01c1bb/build/8db759b7-7fcc-428b-bbb5-63a7d403068e
     - manage-ios-code-signing:
         inputs:
         - distribution_method: $BITRISE_EXPORT_METHOD
