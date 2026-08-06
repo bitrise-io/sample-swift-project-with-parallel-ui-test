@@ -1,0 +1,131 @@
+format_version: "26"
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: ios
+
+app:
+  envs:
+  - BITRISE_PROJECT_PATH: BullsEye.xcworkspace
+  - BITRISE_SCHEME: BullsEye
+  - BITRISE_EXPORT_METHOD: development
+  status_report_name: bitrise/<project_title>/<target_id>
+
+pipelines:
+  pr_check:
+    triggers:
+      pull_request:
+      - target_branch: '*'
+    workflows:
+      test_min_xcode: {}
+      test_latest_xcode: {}
+      test_edge_xcode: {}
+      archive_min_xcode: {}
+      archive_latest_xcode: {}
+      archive_edge_xcode: {}
+
+workflows:
+  # The test workflows ask for a bigger machine than the archive ones because
+  # they boot simulator clones for the parallel UI tests. On the default machine
+  # a clone can fail to finish bootstrapping, which fails the run even when every
+  # test case passed:
+  # https://app.bitrise.io/app/597717e1-5acb-4904-965d-2fefbc01c1bb/build/b10fb202-e575-477e-855e-5e95c48b0d2a
+  test_min_xcode:
+    meta:
+      bitrise.io:
+        stack: osx-xcode-16.0.x
+        machine_type_id: g2.mac.large
+    steps:
+    - bundle::run_tests: {}
+
+  test_latest_xcode:
+    meta:
+      bitrise.io:
+        stack: osx-xcode-latest-stable
+        machine_type_id: g2.mac.large
+    steps:
+    - bundle::run_tests: {}
+
+  test_edge_xcode:
+    meta:
+      bitrise.io:
+        stack: osx-xcode-edge
+        machine_type_id: g2.mac.large
+    steps:
+    - bundle::run_tests: {}
+
+  archive_min_xcode:
+    meta:
+      bitrise.io:
+        stack: osx-xcode-16.0.x
+    steps:
+    - bundle::build_archive: {}
+
+  archive_latest_xcode:
+    meta:
+      bitrise.io:
+        stack: osx-xcode-latest-stable
+    steps:
+    - bundle::build_archive: {}
+
+  archive_edge_xcode:
+    meta:
+      bitrise.io:
+        stack: osx-xcode-edge
+    steps:
+    - bundle::build_archive: {}
+
+step_bundles:
+  run_tests:
+    steps:
+    - git-clone: {}
+    # Signing assets are prepared here so xcodebuild runs without
+    # -allowProvisioningUpdates. When xcodebuild may update profiles mid-build,
+    # the app target and the UI test runner resolve different generations of the
+    # team's shared io.bitrise.* wildcard profile, and the file one of them was
+    # handed is already gone by the time it is packaged.
+    # configuration must match the one xcode-build-for-test uses:
+    # https://app.bitrise.io/app/597717e1-5acb-4904-965d-2fefbc01c1bb/pipelines/6ac2e79d-2181-4fbe-90ee-e6c659e93dbd
+    - manage-ios-code-signing:
+        inputs:
+        - distribution_method: $BITRISE_EXPORT_METHOD
+        - configuration: Debug
+        - sign_uitest_targets: "yes"
+    # Builds for a physical device, which is what exercises code signing of the
+    # test targets.
+    - xcode-build-for-test:
+        inputs:
+        - configuration: Debug
+        - automatic_code_signing: "off"
+    - xcode-test:
+        title: Xcode Test (FullTests)
+        inputs:
+        - project_path: $BITRISE_PROJECT_PATH
+        - scheme: $BITRISE_SCHEME
+        - test_plan: FullTests
+    # Capped because the runner boots one simulator clone per worker and gives up
+    # on a clone that takes over 60s. Uncapped, Xcode asks for more clones than
+    # the machine can boot in time and the run fails on the clone, which no
+    # amount of test retries can recover.
+    - xcode-test:
+        title: Xcode Test (ParallelUITests)
+        inputs:
+        - project_path: $BITRISE_PROJECT_PATH
+        - scheme: $BITRISE_SCHEME
+        - test_plan: ParallelUITests
+        - xcodebuild_options: -maximum-parallel-testing-workers 2
+    - deploy-to-bitrise-io: {}
+
+  build_archive:
+    steps:
+    - git-clone: {}
+    - xcode-archive:
+        inputs:
+        - project_path: $BITRISE_PROJECT_PATH
+        - scheme: $BITRISE_SCHEME
+        - export_method: $BITRISE_EXPORT_METHOD
+        - automatic_code_signing: api-key
+    - deploy-to-bitrise-io: {}
+
+meta:
+  bitrise.io:
+    machine_type_id: g2.mac.medium
+    stack: osx-xcode-16.0.x
