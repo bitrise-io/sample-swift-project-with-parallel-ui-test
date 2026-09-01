@@ -10,7 +10,8 @@ Everything around it exists to give steps something specific to chew on.
 - One **shared scheme**: `BullsEye`.
 - Five targets:
   - `BullsEye` — the app (one screen: a slider, a segmented control to pick the game style, and a score).
-  - `BullsEyeTests` — unit tests, including fake and mock variants.
+  - `BullsEyeTests` — unit tests, including fake and mock variants, plus a Swift Testing
+    (`import Testing`) suite alongside the XCTest ones.
   - `BullsEyeSlowTests` — a test that sleeps for a random 5-10 seconds.
   - `BullsEyeUITests` — UI tests. Two classes with the same test method name, so a result parser has
     to keep them apart.
@@ -47,6 +48,9 @@ set up a scenario by seeding those keys before the run.
   reporting.
 - **Duplicate test method names.** `BullsEyeUITests` and `BullsEyeUITests2` both define
   `testGameStyleSwitch()`, so a report has to key on the class, not just the method.
+- **Both test frameworks in one target.** `BullsEyeTests` mixes XCTest cases with a Swift Testing
+  suite, so a step sees results from both and can be checked against the Swift Testing runner, which
+  ignores the `-skip-testing` xcodebuild flag.
 - **Shared scheme and test plans.** All checked in, so a step can resolve them by name.
 - **Automatic code signing.** The app target and all four test targets use Xcode's automatic
   (managed) signing.
