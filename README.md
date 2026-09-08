@@ -49,11 +49,9 @@ set up a scenario by seeding those keys before the run.
 - **Duplicate test method names.** `BullsEyeUITests` and `BullsEyeUITests2` both define
   `testGameStyleSwitch()`, so a report has to key on the class, not just the method.
 - **Both test frameworks in one target.** `BullsEyeTests` mixes XCTest cases with a Swift Testing
-  suite, so a step sees results from both and can be checked against the Swift Testing runner.
-  `-skip-testing` only skips a Swift Testing case when the function name carries its `()` suffix.
+  suite, so one run produces results from both.
 - **A Swift Testing case with a display name.** `@Test("Score is computed when the guess matches
-  the target")` reports that string as the test-case name, while the function name lives only in the
-  test identifier. A step that skips or quarantines tests by reported name cannot address it.
+  the target")` reports that string as the test-case name instead of the function name.
 - **Shared scheme and test plans.** All checked in, so a step can resolve them by name.
 - **Automatic code signing.** The app target and all four test targets use Xcode's automatic
   (managed) signing.

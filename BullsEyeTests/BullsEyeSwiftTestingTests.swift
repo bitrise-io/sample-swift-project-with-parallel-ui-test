@@ -29,10 +29,6 @@
 import Testing
 @testable import BullsEye
 
-/// Unit tests written with the Swift Testing framework, so the fixture has tests a
-/// step can exercise against the Swift Testing runner. `-skip-testing` only accepts
-/// these with the `()` suffix on the function name, and one case here carries a
-/// display name, whose reported test-case name is not the function name at all.
 struct BullsEyeSwiftTestingTests {
   @Test
   func scoreIsComputedWhenGuessIsHigherThanTarget() {
@@ -48,8 +44,6 @@ struct BullsEyeSwiftTestingTests {
     #expect(game.scoreRound == 105)
   }
 
-  /// The display name is what shows up as the test-case name in the results, so the
-  /// function name can only be recovered from the test identifier.
   @Test("Score is computed when the guess matches the target")
   func scoreIsComputedWhenGuessMatchesTarget() {
     let game = BullsEyeGame()
