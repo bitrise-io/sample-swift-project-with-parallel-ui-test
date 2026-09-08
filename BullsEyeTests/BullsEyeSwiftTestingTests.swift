@@ -50,4 +50,23 @@ struct BullsEyeSwiftTestingTests {
     game.check(guess: game.targetValue)
     #expect(game.scoreRound == 100)
   }
+
+  @Suite
+  struct TotalScore {
+    @Test
+    func totalAddsUpTheRoundScores() {
+      let game = BullsEyeGame()
+      game.check(guess: game.targetValue)
+      game.check(guess: game.targetValue - 5)
+      #expect(game.scoreTotal == 205)
+    }
+
+    @Test
+    func newGameResetsTheTotal() {
+      let game = BullsEyeGame()
+      game.check(guess: game.targetValue)
+      game.startNewGame()
+      #expect(game.scoreTotal == 0)
+    }
+  }
 }

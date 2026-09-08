@@ -52,6 +52,10 @@ set up a scenario by seeding those keys before the run.
   suite, so one run produces results from both.
 - **A Swift Testing case with a display name.** `@Test("Score is computed when the guess matches
   the target")` reports that string as the test-case name instead of the function name.
+- **A nested Swift Testing suite.** `TotalScore` sits inside `BullsEyeSwiftTestingTests`, so its
+  tests are identified by the full suite path,
+  `BullsEyeSwiftTestingTests/TotalScore/totalAddsUpTheRoundScores()`, and a filter that names only
+  the outer suite does not match them.
 - **Shared scheme and test plans.** All checked in, so a step can resolve them by name.
 - **Automatic code signing.** The app target and all four test targets use Xcode's automatic
   (managed) signing.
