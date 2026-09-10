@@ -10,7 +10,8 @@ Everything around it exists to give steps something specific to chew on.
 - One **shared scheme**: `BullsEye`.
 - Five targets:
   - `BullsEye` — the app (one screen: a slider, a segmented control to pick the game style, and a score).
-  - `BullsEyeTests` — unit tests, including fake and mock variants.
+  - `BullsEyeTests` — unit tests, including fake and mock variants, plus a Swift Testing
+    (`import Testing`) suite alongside the XCTest ones.
   - `BullsEyeSlowTests` — a test that sleeps for a random 5-10 seconds.
   - `BullsEyeUITests` — UI tests. Two classes with the same test method name, so a result parser has
     to keep them apart.
@@ -35,6 +36,21 @@ The scheme shares eight test plans. Which one you run decides what the fixture d
 The eventually-passing and eventually-failing cases read their counters from `UserDefaults`, so you
 set up a scenario by seeding those keys before the run.
 
+The Swift Testing cases named `...Eventually...` work differently: they fail on their first attempt
+and pass on every later one, and only while `BULLSEYE_FLAKY_RUN_ID` is set. Hand the variable to the
+test process through xcodebuild's own environment, with a `TEST_RUNNER_` prefix that xcodebuild
+strips:
+
+```
+TEST_RUNNER_BULLSEYE_FLAKY_RUN_ID=$(uuidgen) xcodebuild test ... \
+  -retry-tests-on-failure -test-iterations 2
+```
+
+No build setting or test plan edit is needed, and on Bitrise the variable can come from the workflow
+environment. The marker that remembers the first attempt lives in the test host's temp directory, so
+it survives the process relaunch between repetitions. A fresh value of the variable starts a fresh
+scenario; leaving it unset keeps every plan green.
+
 ## Features relevant for step testing
 
 - **Workspace, not a bare project.** A step has to resolve the scheme through the `.xcworkspace`.
@@ -47,6 +63,18 @@ set up a scenario by seeding those keys before the run.
   reporting.
 - **Duplicate test method names.** `BullsEyeUITests` and `BullsEyeUITests2` both define
   `testGameStyleSwitch()`, so a report has to key on the class, not just the method.
+- **Both test frameworks in one target.** `BullsEyeTests` mixes XCTest cases with a Swift Testing
+  suite, so one run produces results from both.
+- **A Swift Testing case with a display name.** `@Test("Score is computed when the guess matches
+  the target")` reports that string as the test-case name instead of the function name.
+- **A nested Swift Testing suite.** `TotalScore` sits inside `BullsEyeSwiftTestingTests`, so its
+  tests are identified by the full suite path,
+  `BullsEyeSwiftTestingTests/TotalScore/totalAddsUpTheRoundScores()`, and a filter that names only
+  the outer suite does not match them.
+- **Swift Testing cases that fail on the first attempt.** One plain, one display-named and one
+  nested case fail once and then pass, so a single run can produce a fail-then-pass result for each
+  of the three identifier shapes. Switched on from outside the project, see the test plan notes
+  above.
 - **Shared scheme and test plans.** All checked in, so a step can resolve them by name.
 - **Automatic code signing.** The app target and all four test targets use Xcode's automatic
   (managed) signing.
