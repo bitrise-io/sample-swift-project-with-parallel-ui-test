@@ -36,6 +36,21 @@ The scheme shares eight test plans. Which one you run decides what the fixture d
 The eventually-passing and eventually-failing cases read their counters from `UserDefaults`, so you
 set up a scenario by seeding those keys before the run.
 
+The Swift Testing cases named `...Eventually...` work differently: they fail on their first attempt
+and pass on every later one, and only while `BULLSEYE_FLAKY_RUN_ID` is set. Hand the variable to the
+test process through xcodebuild's own environment, with a `TEST_RUNNER_` prefix that xcodebuild
+strips:
+
+```
+TEST_RUNNER_BULLSEYE_FLAKY_RUN_ID=$(uuidgen) xcodebuild test ... \
+  -retry-tests-on-failure -test-iterations 2
+```
+
+No build setting or test plan edit is needed, and on Bitrise the variable can come from the workflow
+environment. The marker that remembers the first attempt lives in the test host's temp directory, so
+it survives the process relaunch between repetitions. A fresh value of the variable starts a fresh
+scenario; leaving it unset keeps every plan green.
+
 ## Features relevant for step testing
 
 - **Workspace, not a bare project.** A step has to resolve the scheme through the `.xcworkspace`.
@@ -56,6 +71,10 @@ set up a scenario by seeding those keys before the run.
   tests are identified by the full suite path,
   `BullsEyeSwiftTestingTests/TotalScore/totalAddsUpTheRoundScores()`, and a filter that names only
   the outer suite does not match them.
+- **Swift Testing cases that fail on the first attempt.** One plain, one display-named and one
+  nested case fail once and then pass, so a single run can produce a fail-then-pass result for each
+  of the three identifier shapes. Switched on from outside the project, see the test plan notes
+  above.
 - **Shared scheme and test plans.** All checked in, so a step can resolve them by name.
 - **Automatic code signing.** The app target and all four test targets use Xcode's automatic
   (managed) signing.

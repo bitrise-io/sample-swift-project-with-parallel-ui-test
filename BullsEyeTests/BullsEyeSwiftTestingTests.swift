@@ -26,8 +26,29 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
+import Foundation
 import Testing
 @testable import BullsEye
+
+/// Makes a test case fail on its first attempt and pass afterwards, for as long as
+/// `BULLSEYE_FLAKY_RUN_ID` keeps the same value. Without that variable nothing fails.
+enum FlakyRun {
+  static func succeedsThisAttempt(_ caseID: String) -> Bool {
+    guard let runID = ProcessInfo.processInfo.environment["BULLSEYE_FLAKY_RUN_ID"], !runID.isEmpty else {
+      return true
+    }
+
+    // The marker has to outlive the test process, which is relaunched between repetitions.
+    let marker = (NSTemporaryDirectory() as NSString)
+      .appendingPathComponent("bullseye-flaky-\(runID)-\(caseID)")
+    if FileManager.default.fileExists(atPath: marker) {
+      return true
+    }
+
+    FileManager.default.createFile(atPath: marker, contents: nil)
+    return false
+  }
+}
 
 struct BullsEyeSwiftTestingTests {
   @Test
@@ -51,6 +72,16 @@ struct BullsEyeSwiftTestingTests {
     #expect(game.scoreRound == 100)
   }
 
+  @Test
+  func scoreIsComputedEventually() {
+    #expect(FlakyRun.succeedsThisAttempt("scoreIsComputedEventually"))
+  }
+
+  @Test("Score is eventually computed when the guess matches the target")
+  func scoreIsEventuallyComputedWhenGuessMatchesTarget() {
+    #expect(FlakyRun.succeedsThisAttempt("scoreIsEventuallyComputedWhenGuessMatchesTarget"))
+  }
+
   @Suite
   struct TotalScore {
     @Test
@@ -67,6 +98,11 @@ struct BullsEyeSwiftTestingTests {
       game.check(guess: game.targetValue)
       game.startNewGame()
       #expect(game.scoreTotal == 0)
+    }
+
+    @Test
+    func totalIsAddedUpEventually() {
+      #expect(FlakyRun.succeedsThisAttempt("totalIsAddedUpEventually"))
     }
   }
 }
