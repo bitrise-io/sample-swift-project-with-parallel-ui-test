@@ -1,0 +1,27 @@
+{
+  "configurations" : [
+    {
+      "id" : "0A0A5C2E-3F2B-4F4E-9E3B-6B1E0B5C7A21",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "selectedTests" : [
+        "BullsEyeRandomlyFailingTests\/testPassesAtRandom()"
+      ],
+      "target" : {
+        "containerPath" : "container:BullsEye.xcodeproj",
+        "identifier" : "139E88A6268DBCDA0007755C",
+        "name" : "BullsEyeFailingTests"
+      }
+    }
+  ],
+  "version" : 1
+}

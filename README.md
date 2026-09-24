@@ -32,9 +32,20 @@ The scheme shares eight test plans. Which one you run decides what the fixture d
 | `EventuallySucceedingTests` | fails N times, then always passes | Test repetition that eventually goes green. |
 | `EventuallyFailingTests` | passes N times, then always fails | Test repetition that eventually goes red. |
 | `EventuallyFailingInMemoryTests` | same, but the counter lives in memory | The Xcode Test step's "relaunch tests for each repetition" input. Per-process state survives or resets depending on that setting. |
+| `RandomlyFailingTests` | fails on a draw, by percentage | Flaky detection where nothing carries over between attempts, as on a cloud device. |
 
 The eventually-passing and eventually-failing cases read their counters from `UserDefaults`, so you
 set up a scenario by seeding those keys before the run.
+
+`RandomlyFailingTests` needs no scenario at all. Its case draws afresh every time it runs and fails
+with the percentage in `BULLSEYE_RANDOM_FLAKY_PERCENT`, so a retry can come out differently even when
+the run starts from a clean device with no state left from the attempt before it:
+
+```
+TEST_RUNNER_BULLSEYE_RANDOM_FLAKY_PERCENT=80 xcodebuild test ... -testPlan RandomlyFailingTests
+```
+
+Leaving the variable unset makes the case pass every time.
 
 The Swift Testing cases named `...Eventually...` work differently: they fail on their first attempt
 and pass on every later one, and only while `BULLSEYE_FLAKY_RUN_ID` is set. Hand the variable to the

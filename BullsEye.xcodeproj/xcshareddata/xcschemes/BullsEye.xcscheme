@@ -53,6 +53,9 @@
          <TestPlanReference
             reference = "container:EventuallyFailingInMemoryTests.xctestplan">
          </TestPlanReference>
+         <TestPlanReference
+            reference = "container:RandomlyFailingTests.xctestplan">
+         </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference
