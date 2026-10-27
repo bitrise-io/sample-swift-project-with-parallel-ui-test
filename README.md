@@ -75,6 +75,12 @@ scenario; leaving it unset keeps every plan green.
   nested case fail once and then pass, so a single run can produce a fail-then-pass result for each
   of the three identifier shapes. Switched on from outside the project, see the test plan notes
   above.
+- **A parametrized Swift Testing case that fails on the first attempt.**
+  `scoreIsEventuallyComputedForEachOffset(offset:)` runs with two arguments. Only `5` fails once and
+  then passes; `10` passes first time. With retries on, the xcresult nests the attempts (`First Run`,
+  `Retry 1`) under each argument rather than under the test case, and from Xcode 27 the test case
+  and the retried argument keep a `Failed` result even though the retry passed. A result parser has
+  to read the attempts to report the test as passed and flaky.
 - **Shared scheme and test plans.** All checked in, so a step can resolve them by name.
 - **Automatic code signing.** The app target and all four test targets use Xcode's automatic
   (managed) signing.
