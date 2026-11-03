@@ -344,6 +344,8 @@
 					D2A5F1FF1F4A9144005CD714 = {
 						CreatedOnToolsVersion = 9.0;
 						LastSwiftMigration = 1020;
+						DevelopmentTeam = 72SA8V3WYL;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
