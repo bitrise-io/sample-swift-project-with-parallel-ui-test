@@ -107,8 +107,6 @@
       "product": "Products/BullsEye.app",
       "product-type": "application",
       "last-swift-migration": "10.2",
-      "legacy-provisioning-style": "manual",
-      "legacy-team-id": "72SA8V3WYL",
       "build-phases": [
         "compile-sources",
         "frameworks",
@@ -117,7 +115,9 @@
       "build-settings": {
         "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
         "CLANG_ENABLE_MODULES": "YES",
+        "CODE_SIGN_IDENTITY": "Apple Development",
         "CODE_SIGN_STYLE": "Automatic",
+        "DEVELOPMENT_TEAM": "",
         "INFOPLIST_FILE": "BullsEye/Info.plist",
         "IPHONEOS_DEPLOYMENT_TARGET": "15.6",
         "LD_RUNPATH_SEARCH_PATHS": [
@@ -126,6 +126,7 @@
         ],
         "PRODUCT_BUNDLE_IDENTIFIER": "$(SAMPLE_BUNDLE_ID_BASE)",
         "PRODUCT_NAME": "$(TARGET_NAME)",
+        "PROVISIONING_PROFILE_SPECIFIER": "",
         "SWIFT_OPTIMIZATION_LEVEL[config=Debug]": "-Onone",
         "SWIFT_VERSION": "5.0",
         "TARGETED_DEVICE_FAMILY": "1",
