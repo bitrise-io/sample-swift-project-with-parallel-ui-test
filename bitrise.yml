@@ -112,6 +112,12 @@ step_bundles:
         - scheme: $BITRISE_SCHEME
         - test_plan: ParallelUITests
         - xcodebuild_options: -maximum-parallel-testing-workers 2
+    - xcode-test:
+        title: Xcode Test (UIConfigurationTests)
+        inputs:
+        - project_path: $BITRISE_PROJECT_PATH
+        - scheme: $BITRISE_SCHEME
+        - test_plan: UIConfigurationTests
     - deploy-to-bitrise-io: {}
 
   build_archive:
