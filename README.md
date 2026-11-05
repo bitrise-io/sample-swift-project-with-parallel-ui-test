@@ -14,13 +14,13 @@ Everything around it exists to give steps something specific to chew on.
     (`import Testing`) suite alongside the XCTest ones.
   - `BullsEyeSlowTests` — a test that sleeps for a random 5-10 seconds.
   - `BullsEyeUITests` — UI tests. Two classes with the same test method name, so a result parser has
-    to keep them apart.
+    to keep them apart, plus a launch test that runs once for each UI configuration.
   - `BullsEyeFailingTests` — tests that fail on purpose, plus the flaky-by-design cases below.
 - iOS deployment target 15.6.
 
 ## Test plans
 
-The scheme shares eight test plans. Which one you run decides what the fixture demonstrates.
+The scheme shares nine test plans. Which one you run decides what the fixture demonstrates.
 
 | test plan | contents | what it is for |
 | --- | --- | --- |
@@ -28,6 +28,7 @@ The scheme shares eight test plans. Which one you run decides what the fixture d
 | `UnitTests` | unit + slow tests | Unit tests only, no simulator UI. |
 | `UITests` | UI tests, serial | Baseline to compare parallel runs against. |
 | `ParallelUITests` | UI tests, `parallelizable` on | Parallel UI test execution across simulator clones. |
+| `UIConfigurationTests` | the launch test, once for each UI configuration | A test whose results are split by UI configuration (appearance, orientation). |
 | `FailingTests` | one always-failing network test | A step's handling of a genuine test failure. |
 | `EventuallySucceedingTests` | fails N times, then always passes | Test repetition that eventually goes green. |
 | `EventuallyFailingTests` | passes N times, then always fails | Test repetition that eventually goes red. |
@@ -81,6 +82,13 @@ scenario; leaving it unset keeps every plan green.
   `Retry 1`) under each argument rather than under the test case, and from Xcode 27 the test case
   and the retried argument keep a `Failed` result even though the retry passed. A result parser has
   to read the attempts to report the test as passed and flaky.
+- **A UI test that runs for each UI configuration.** `BullsEyeLaunchTests/testLaunch()` sets
+  `runsForEachTargetApplicationUIConfiguration`, so it runs once for each appearance and orientation
+  the simulator offers. Only the `UIConfigurationTests` plan runs it; the other plans skip it. The
+  xcresult stores each configuration (`Light Appearance, Portrait`, ...) the same way as a Swift
+  Testing argument. While `BULLSEYE_FLAKY_RUN_ID` is set, the configuration that runs first fails
+  once and then passes, and the others pass first time. With retries on, the test case keeps a
+  `Failed` result although the retry passed, as with the parametrized case above.
 - **Shared scheme and test plans.** All checked in, so a step can resolve them by name.
 - **Automatic code signing.** The app target and all four test targets use Xcode's automatic
   (managed) signing.
