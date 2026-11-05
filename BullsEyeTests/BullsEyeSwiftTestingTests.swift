@@ -82,6 +82,17 @@ struct BullsEyeSwiftTestingTests {
     #expect(FlakyRun.succeedsThisAttempt("scoreIsEventuallyComputedWhenGuessMatchesTarget"))
   }
 
+  @Test(arguments: [5, 10])
+  func scoreIsEventuallyComputedForEachOffset(offset: Int) {
+    let game = BullsEyeGame()
+    game.check(guess: game.targetValue + offset)
+    #expect(game.scoreRound == 100 - offset)
+    // Only one argument is flaky, so one run holds both a retried argument and one that passed first time.
+    if offset == 5 {
+      #expect(FlakyRun.succeedsThisAttempt("scoreIsEventuallyComputedForEachOffset-5"))
+    }
+  }
+
   @Suite
   struct TotalScore {
     @Test
