@@ -35,7 +35,10 @@ The scheme shares nine test plans. Which one you run decides what the fixture de
 | `EventuallyFailingInMemoryTests` | same, but the counter lives in memory | The Xcode Test step's "relaunch tests for each repetition" input. Per-process state survives or resets depending on that setting. |
 
 The eventually-passing and eventually-failing cases read their counters from `UserDefaults`, so you
-set up a scenario by seeding those keys before the run.
+set up a scenario by seeding those keys before the run: `eventually_succeeding_test_number_of_failures`
+for `EventuallySucceedingTests`, and `eventually_failing_test_number_of_successes` for both
+`EventuallyFailing...` plans. An unset counter reads as 0, so `EventuallySucceedingTests` then passes
+and the two `EventuallyFailing...` plans fail on every run.
 
 The Swift Testing cases named `...Eventually...` and the UI configuration launch test work
 differently, and only while `BULLSEYE_FLAKY_RUN_ID` is set. The Swift Testing cases fail on their
@@ -51,8 +54,8 @@ TEST_RUNNER_BULLSEYE_FLAKY_RUN_ID=$(uuidgen) xcodebuild test ... \
 No build setting or test plan edit is needed, and on Bitrise the variable can come from the workflow
 environment. The marker that remembers the first attempt lives in the temp directory of the test
 process (the test host for unit tests, the UI test runner for UI tests), so it survives the process
-relaunch between repetitions. A fresh value of the variable starts a fresh
-scenario; leaving it unset keeps every plan green.
+relaunch between repetitions. A fresh value of the variable starts a fresh scenario; leaving it
+unset makes these cases pass first time.
 
 ## Features relevant for step testing
 
@@ -155,7 +158,7 @@ plus one bundle reference and a step change only has to be made once.
 
 `run_tests` prepares signing assets with `manage-ios-code-signing`, then runs
 `xcode-build-for-test` for a physical device, which is what exercises code signing of the test
-targets, then runs `FullTests` and `ParallelUITests` on a simulator.
+targets, then runs `FullTests`, `ParallelUITests` and `UIConfigurationTests` on a simulator.
 
 Signing is prepared as its own step rather than left to `xcode-build-for-test` so that xcodebuild
 never runs with `-allowProvisioningUpdates`. All five bundle IDs match the team's
