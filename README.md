@@ -37,10 +37,11 @@ The scheme shares nine test plans. Which one you run decides what the fixture de
 The eventually-passing and eventually-failing cases read their counters from `UserDefaults`, so you
 set up a scenario by seeding those keys before the run.
 
-The Swift Testing cases named `...Eventually...` work differently: they fail on their first attempt
-and pass on every later one, and only while `BULLSEYE_FLAKY_RUN_ID` is set. Hand the variable to the
-test process through xcodebuild's own environment, with a `TEST_RUNNER_` prefix that xcodebuild
-strips:
+The Swift Testing cases named `...Eventually...` and the UI configuration launch test work
+differently, and only while `BULLSEYE_FLAKY_RUN_ID` is set. The Swift Testing cases fail on their
+first attempt and pass on every later one; the launch test fails on the first launch of the run.
+Hand the variable to the test process through xcodebuild's own environment, with a `TEST_RUNNER_`
+prefix that xcodebuild strips:
 
 ```
 TEST_RUNNER_BULLSEYE_FLAKY_RUN_ID=$(uuidgen) xcodebuild test ... \
@@ -48,8 +49,9 @@ TEST_RUNNER_BULLSEYE_FLAKY_RUN_ID=$(uuidgen) xcodebuild test ... \
 ```
 
 No build setting or test plan edit is needed, and on Bitrise the variable can come from the workflow
-environment. The marker that remembers the first attempt lives in the test host's temp directory, so
-it survives the process relaunch between repetitions. A fresh value of the variable starts a fresh
+environment. The marker that remembers the first attempt lives in the temp directory of the test
+process (the test host for unit tests, the UI test runner for UI tests), so it survives the process
+relaunch between repetitions. A fresh value of the variable starts a fresh
 scenario; leaving it unset keeps every plan green.
 
 ## Features relevant for step testing
