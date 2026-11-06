@@ -99,3 +99,44 @@ class BullsEyeUITests2: XCTestCase {
     }
   }
 }
+
+/// Fails on the first launch of a run and passes afterwards, for as long as `BULLSEYE_FLAKY_RUN_ID`
+/// keeps the same value. Without that variable nothing fails.
+enum FlakyLaunch {
+  static func succeedsThisAttempt(_ caseID: String) -> Bool {
+    guard let runID = ProcessInfo.processInfo.environment["BULLSEYE_FLAKY_RUN_ID"], !runID.isEmpty else {
+      return true
+    }
+
+    // The marker has to outlive the test process, which is relaunched between repetitions.
+    let marker = (NSTemporaryDirectory() as NSString)
+      .appendingPathComponent("bullseye-flaky-\(runID)-\(caseID)")
+    if FileManager.default.fileExists(atPath: marker) {
+      return true
+    }
+
+    FileManager.default.createFile(atPath: marker, contents: nil)
+    return false
+  }
+}
+
+class BullsEyeLaunchTests: XCTestCase {
+  override class var runsForEachTargetApplicationUIConfiguration: Bool {
+    true
+  }
+
+  override func setUpWithError() throws {
+    try super.setUpWithError()
+    continueAfterFailure = false
+  }
+
+  // XCTest does not tell a test which UI configuration it runs in, so only the configuration that
+  // runs first fails, and only on its first attempt.
+  func testLaunch() {
+    let app = XCUIApplication()
+    app.launch()
+
+    XCTAssertTrue(app.segmentedControls.buttons["Slide"].exists)
+    XCTAssertTrue(FlakyLaunch.succeedsThisAttempt("testLaunch"))
+  }
+}

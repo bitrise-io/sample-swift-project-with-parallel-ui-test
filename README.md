@@ -14,13 +14,13 @@ Everything around it exists to give steps something specific to chew on.
     (`import Testing`) suite alongside the XCTest ones.
   - `BullsEyeSlowTests` — a test that sleeps for a random 5-10 seconds.
   - `BullsEyeUITests` — UI tests. Two classes with the same test method name, so a result parser has
-    to keep them apart.
+    to keep them apart, plus a launch test that runs once for each UI configuration.
   - `BullsEyeFailingTests` — tests that fail on purpose, plus the flaky-by-design cases below.
 - iOS deployment target 15.6.
 
 ## Test plans
 
-The scheme shares eight test plans. Which one you run decides what the fixture demonstrates.
+The scheme shares nine test plans. Which one you run decides what the fixture demonstrates.
 
 | test plan | contents | what it is for |
 | --- | --- | --- |
@@ -28,18 +28,23 @@ The scheme shares eight test plans. Which one you run decides what the fixture d
 | `UnitTests` | unit + slow tests | Unit tests only, no simulator UI. |
 | `UITests` | UI tests, serial | Baseline to compare parallel runs against. |
 | `ParallelUITests` | UI tests, `parallelizable` on | Parallel UI test execution across simulator clones. |
+| `UIConfigurationTests` | the launch test, once for each UI configuration | A test whose results are split by UI configuration (appearance, orientation). |
 | `FailingTests` | one always-failing network test | A step's handling of a genuine test failure. |
 | `EventuallySucceedingTests` | fails N times, then always passes | Test repetition that eventually goes green. |
 | `EventuallyFailingTests` | passes N times, then always fails | Test repetition that eventually goes red. |
 | `EventuallyFailingInMemoryTests` | same, but the counter lives in memory | The Xcode Test step's "relaunch tests for each repetition" input. Per-process state survives or resets depending on that setting. |
 
 The eventually-passing and eventually-failing cases read their counters from `UserDefaults`, so you
-set up a scenario by seeding those keys before the run.
+set up a scenario by seeding those keys before the run: `eventually_succeeding_test_number_of_failures`
+for `EventuallySucceedingTests`, and `eventually_failing_test_number_of_successes` for both
+`EventuallyFailing...` plans. An unset counter reads as 0, so `EventuallySucceedingTests` then passes
+and the two `EventuallyFailing...` plans fail on every run.
 
-The Swift Testing cases named `...Eventually...` work differently: they fail on their first attempt
-and pass on every later one, and only while `BULLSEYE_FLAKY_RUN_ID` is set. Hand the variable to the
-test process through xcodebuild's own environment, with a `TEST_RUNNER_` prefix that xcodebuild
-strips:
+The Swift Testing cases named `...Eventually...` and the UI configuration launch test work
+differently, and only while `BULLSEYE_FLAKY_RUN_ID` is set. The Swift Testing cases fail on their
+first attempt and pass on every later one; the launch test fails on the first launch of the run.
+Hand the variable to the test process through xcodebuild's own environment, with a `TEST_RUNNER_`
+prefix that xcodebuild strips:
 
 ```
 TEST_RUNNER_BULLSEYE_FLAKY_RUN_ID=$(uuidgen) xcodebuild test ... \
@@ -47,9 +52,10 @@ TEST_RUNNER_BULLSEYE_FLAKY_RUN_ID=$(uuidgen) xcodebuild test ... \
 ```
 
 No build setting or test plan edit is needed, and on Bitrise the variable can come from the workflow
-environment. The marker that remembers the first attempt lives in the test host's temp directory, so
-it survives the process relaunch between repetitions. A fresh value of the variable starts a fresh
-scenario; leaving it unset keeps every plan green.
+environment. The marker that remembers the first attempt lives in the temp directory of the test
+process (the test host for unit tests, the UI test runner for UI tests), so it survives the process
+relaunch between repetitions. A fresh value of the variable starts a fresh scenario; leaving it
+unset makes these cases pass first time.
 
 ## Features relevant for step testing
 
@@ -81,6 +87,13 @@ scenario; leaving it unset keeps every plan green.
   `Retry 1`) under each argument rather than under the test case, and from Xcode 27 the test case
   and the retried argument keep a `Failed` result even though the retry passed. A result parser has
   to read the attempts to report the test as passed and flaky.
+- **A UI test that runs for each UI configuration.** `BullsEyeLaunchTests/testLaunch()` sets
+  `runsForEachTargetApplicationUIConfiguration`, so it runs once for each appearance and orientation
+  the simulator offers. Only the `UIConfigurationTests` plan runs it; the other plans skip it. The
+  xcresult stores each configuration (`Light Appearance, Portrait`, ...) the same way as a Swift
+  Testing argument. While `BULLSEYE_FLAKY_RUN_ID` is set, the configuration that runs first fails
+  once and then passes, and the others pass first time. With retries on, the test case keeps a
+  `Failed` result although the retry passed, as with the parametrized case above.
 - **Shared scheme and test plans.** All checked in, so a step can resolve them by name.
 - **Automatic code signing.** The app target and all four test targets use Xcode's automatic
   (managed) signing.
@@ -145,7 +158,7 @@ plus one bundle reference and a step change only has to be made once.
 
 `run_tests` prepares signing assets with `manage-ios-code-signing`, then runs
 `xcode-build-for-test` for a physical device, which is what exercises code signing of the test
-targets, then runs `FullTests` and `ParallelUITests` on a simulator.
+targets, then runs `FullTests`, `ParallelUITests` and `UIConfigurationTests` on a simulator.
 
 Signing is prepared as its own step rather than left to `xcode-build-for-test` so that xcodebuild
 never runs with `-allowProvisioningUpdates`. All five bundle IDs match the team's
