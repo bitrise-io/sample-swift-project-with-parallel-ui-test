@@ -13,13 +13,13 @@
 		13FB7CF1267726620084066F /* BullsEyeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FB7CF0267726620084066F /* BullsEyeTests.swift */; };
 		13FB7CFE2677288A0084066F /* BullsEyeSlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FB7CFD2677288A0084066F /* BullsEyeSlowTests.swift */; };
 		13FB7D0526773A500084066F /* BullsEyeFakeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FB7D0426773A500084066F /* BullsEyeFakeTests.swift */; };
-		AA0000010000000000000002 /* BullsEyeSwiftTestingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000010000000000000001 /* BullsEyeSwiftTestingTests.swift */; };
 		13FB7D0726773B370084066F /* BullsEyeMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FB7D0626773B370084066F /* BullsEyeMockTests.swift */; };
 		13FB7D0F26773C570084066F /* BullsEyeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FB7D0E26773C570084066F /* BullsEyeUITests.swift */; };
 		16C4A1E1301CC58500ABBDA2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C4A1E0301CC58300ABBDA2 /* SceneDelegate.swift */; };
 		202D822E25D7D57B00778080 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D822D25D7D57B00778080 /* NetworkMonitor.swift */; };
 		202D823E25D7D8A300778080 /* URLSessionStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D823D25D7D8A300778080 /* URLSessionStub.swift */; };
 		5394F02521864DF5006E754C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5394F02321864DF4006E754C /* LaunchScreen.storyboard */; };
+		AA0000010000000000000002 /* BullsEyeSwiftTestingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000010000000000000001 /* BullsEyeSwiftTestingTests.swift */; };
 		D2A5F2091F4A9144005CD714 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2A5F2071F4A9144005CD714 /* Main.storyboard */; };
 		D2A5F20B1F4A9144005CD714 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2A5F20A1F4A9144005CD714 /* Assets.xcassets */; };
 		D2A5F2211F4A96D0005CD714 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5F2201F4A96D0005CD714 /* AppDelegate.swift */; };
@@ -68,7 +68,6 @@
 		13FB7CFB2677288A0084066F /* BullsEyeSlowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BullsEyeSlowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		13FB7CFD2677288A0084066F /* BullsEyeSlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BullsEyeSlowTests.swift; sourceTree = "<group>"; };
 		13FB7D0426773A500084066F /* BullsEyeFakeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BullsEyeFakeTests.swift; path = BullsEyeTests/BullsEyeFakeTests.swift; sourceTree = SOURCE_ROOT; };
-		AA0000010000000000000001 /* BullsEyeSwiftTestingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BullsEyeSwiftTestingTests.swift; sourceTree = "<group>"; };
 		13FB7D0626773B370084066F /* BullsEyeMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BullsEyeMockTests.swift; sourceTree = "<group>"; };
 		13FB7D0C26773C570084066F /* BullsEyeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BullsEyeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		13FB7D0E26773C570084066F /* BullsEyeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BullsEyeUITests.swift; sourceTree = "<group>"; };
@@ -82,6 +81,7 @@
 		8C18098226A05EEF00631F74 /* EventuallyFailingInMemoryTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EventuallyFailingInMemoryTests.xctestplan; sourceTree = "<group>"; };
 		8C6DE9B3269DD0240020B2C9 /* EventuallySucceedingTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EventuallySucceedingTests.xctestplan; sourceTree = "<group>"; };
 		8C6DE9B4269DD04C0020B2C9 /* EventuallyFailingTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EventuallyFailingTests.xctestplan; sourceTree = "<group>"; };
+		AA0000010000000000000001 /* BullsEyeSwiftTestingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BullsEyeSwiftTestingTests.swift; sourceTree = "<group>"; };
 		D2A5F2001F4A9144005CD714 /* BullsEye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BullsEye.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2A5F2081F4A9144005CD714 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D2A5F20A1F4A9144005CD714 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -750,7 +750,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 72SA8V3WYL;
+				DEVELOPMENT_TEAM = DT2C2FZ7U2;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -771,7 +771,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SAMPLE_BUNDLE_ID_BASE = "io.bitrise.sample-apps-swift";
+				SAMPLE_BUNDLE_ID_BASE = io.bitrise.samples.swift;
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -815,7 +815,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 72SA8V3WYL;
+				DEVELOPMENT_TEAM = DT2C2FZ7U2;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -829,7 +829,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				SAMPLE_BUNDLE_ID_BASE = "io.bitrise.sample-apps-swift";
+				SAMPLE_BUNDLE_ID_BASE = io.bitrise.samples.swift;
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
